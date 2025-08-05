@@ -76,12 +76,21 @@ jokers = [
   
 ]
 
-Fates = [
+fates = [
   ["The Gambler", "1 in 4 chance of giving a joker. Must have space", 2],
 
   ["The Twist", "Gives 2 Fates", 2],
 
   ["The Reckoning", "", 2],
+]
+
+crystals = [
+  ["Weak Crystal", "Upgrades Hand Totals 4-8", 2],
+  ["Moderate Crystal", "Upgrades Hand Totals 9-11", 2],
+  ["Strong Crystal", "Upgrades Hand Totals 13-16", 2],
+  ["Power Crystal", "Upgrade Hand Totals 17-19", 2],
+  ["Supreme Crystal", "Upgrade Hand Totals of 20", 2],
+  ["Ultimate Crystal", "Upgrades Blackjacks", 2]
 ]
 
 bossdealers = {
