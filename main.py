@@ -3,7 +3,7 @@ import time
 
 hands = 5
 discards = 3
-table = 0
+table = 1
 basedealers = [100, 300, 600, 1000, 2400, 6000]
 handvalues = {
   4: [5, 1],
@@ -105,7 +105,8 @@ def drawcard(deck, hand, value):
 
 def discard(hand, value):
   selected = input("Enter the cards you would like to discard separated by a space")
-  selected.split()
+  selected = selected.split()
+
   if len(selected) > 3:
     for selection in range(0, 3):
       if selected[selection] in hand:
@@ -121,16 +122,17 @@ def discard(hand, value):
           value -= int(selected[selection[0]])
   else:
     for selection in selected:
-      hand.remove(selection)
-      if selection[0] == "A":
-        if value > 10:
-          value -= 11
+      if selection in hand:
+        hand.remove(selection)
+        if selection[0] == "A":
+          if value > 10:
+            value -= 11
+          else:
+            value -= 1
+        elif selection[0] in ["T", "J", "Q", "K"]:
+          value -= 10
         else:
-          value -= 1
-      elif selection[0] in ["T", "J", "Q", "K"]:
-        value -= 10
-      else:
-        value -= int(selection[0])
+          value -= int(selection[0])
   return hand, value
 
 def jokercheck(jokers, hand, chips, multiplier):
@@ -166,6 +168,8 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
+
+  print("Target Score:", scoretobeat)
   
   while score < scoretobeat and hands > 0:
     ans = ""
@@ -211,10 +215,12 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
 
     while dvalue < 17:
       ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
-      print("Dealer cards:")
+      print("\nDealer cards:")
       for card in dhand:
         print(card, end = " ")
       print("\nValue:", dvalue)
+      print()
+      time.sleep(1)
 
     if plvalue > 21:
       print("Score:", score)
@@ -235,18 +241,20 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
         chips += 10
       else:
         chips += int(card[0])
+      time.sleep(1)
 
     chips, multiplier = jokercheck(pljokers, plhand, chips, multiplier)
 
     handscore = chips * multiplier * doubledown
 
-    print(chips, "*", multiplier, "*", doubledown, "=", handscore)
-
     if dvalue > 21:
+      print(chips, "*", multiplier, "*", doubledown, "=", handscore)
       score += handscore
     elif dvalue == plvalue:
+      print(chips, "*", multiplier//2, "*", doubledown, "=", handscore//2)
       score += handscore // 2
     elif plvalue > dvalue:
+      print(chips, "*", multiplier, "*", doubledown, "=", handscore)
       score += handscore
   
     print("Score:", score)
@@ -259,5 +267,5 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   else:
     print("You LOSE!")
 
-dealer(decks["standard"], decks["standard"], basedealers[table], [], hands, discards)
+dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards)
   
