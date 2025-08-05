@@ -4,7 +4,7 @@ import sys
 
 hands = 5
 discards = 3
-table = 1
+table = 0
 round = 1
 money = 5
 basedealers = [100, 300, 600, 1000, 2400, 6000]
@@ -41,7 +41,7 @@ decks = {
 
   "odd": [value+suit for suit in suits for value in values if value not in [2, 4, 6, 8, "T"]],
 
-  "prime": [str(value)+suit for suit in suits for value in ["A", 2, 3, 5, 7]],
+  "prime": [str(value)+suit for suit in suits for value in ["A", 2, 3, 5, 7]] * 2,
 
   "red": [value+suit for suit in ["H", "D"] for value in values],
 
@@ -53,7 +53,7 @@ decks = {
 
   "mirror": [value+suit for suit in suits for value in values] * 2,
 
-  "countless": [str(value)+suit for suit in suits for value in [7, 8, 9]]*2
+  "countless": [str(value)+suit for suit in suits for value in [7, 8, 9]]*4
 }
 
 jokers = [
@@ -124,7 +124,7 @@ bossdealers = {
 def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
   pldeck = choosedeck(decks)
   while True:
-    if round % 3 == 0:
+    if round % 3 == 1:
       table += 1
     round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
 
@@ -169,7 +169,7 @@ def discard(hand, value):
         elif selected[selection][0] in ["T", "J", "Q", "K"]:
           value -= 10
         else:
-          value -= int(selected[selection[0]])
+          value -= int(selected[selection][0])
   else:
     for selection in selected:
       if selection in hand:
@@ -213,19 +213,21 @@ def jokercheck(jokers, hand, chips, multiplier):
   
   return chips, multiplier
 
-def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards, round, money):
+def dealer(pldeck, ddeck, scoretobeat, pljokers, 
+hands, discards, round, money):
   global handvalues
   if "Wasteful" in pljokers:
     discards += 1
   elif "Quickdraw" in pljokers:
     hands += 1
+    print(pldeck)
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
-  if round % 3 == 2:
-    scoretobeat *= 1.5
-  elif round % 3 == 0:
+  if round % 3 == 1:
     scoretobeat *= 2
+  elif round % 3 == 0:
+    scoretobeat *= 1.5
   print("Target Score:", scoretobeat)
   
   while score < scoretobeat and hands > 0:
