@@ -54,10 +54,19 @@ decks = {
 }
 
 jokers = [
-  ["Jeweler", "+3 Multiplier per Diamond Played"],
-  ["Miner", "+3 Multiplier per Spade Played"],
-  ["Lover", "+3 Multiplier per Heart Played"],
-  ["Botanist", "+3 Multiplier per Club Played"]
+  ["Jeweler", "+3 Multiplier per Diamond Played", 3],
+  
+  ["Miner", "+3 Multiplier per Spade Played", 3],
+  
+  ["Lover", "+3 Multiplier per Heart Played", 3],
+  
+  ["Botanist", "+3 Multiplier per Club Played", 3],
+
+  ["Lifeguard", "Survive if you get 50% requireed score", 6],
+
+  ["Wasteful", "+1 Discard per Dealer", 4],
+
+  ["Quickdraw", "+1 Hand per Dealer", 4],
 ]
 
 bossdealers = {
@@ -188,8 +197,9 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   
     for i in range(0, 2):
       pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
-    
-    ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
+
+    for i in range(0, 2):
+      ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
     
     print("Your cards:")
     for card in plhand:
@@ -197,7 +207,12 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
     print("\nValue:", plvalue)
 
     print("\n\nDealer Upcard:")
-    print(dhand[0], "\nValue:", dvalue)
+    if dhand[0][0] == "A":
+      print(dhand[0], "\nValue:", 11)
+    elif dhand[0][0] in ["T", "J", "Q", "K"]:
+      print(dhand[0], "\nValue:", 10)
+    else:
+      print(dhand[0], "\nValue:", dhand[0][0])
 
     while ans != "stick" and plvalue < 22:
       ans = input("Would you like to: hit, stick, double down, or discard?")
