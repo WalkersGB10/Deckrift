@@ -226,8 +226,10 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
     while ans != "stick" and plvalue < 22:
       ans = input("Would you like to: hit, stick, double down, or discard?")
       if ans == "hit":
+        hands -= 1
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
       elif ans == "double down":
+        hands -=1
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
         doubledown = 2
         ans = "stick"
@@ -241,7 +243,6 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       for card in plhand:
         print(card, end = " ")
       print("\nValue:", plvalue)
-      hands -= 1
 
     if plvalue > 21:
       print("You Went Bust!")
@@ -290,9 +291,12 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       print(chips, "*", multiplier, "*", doubledown, "=", handscore)
       score += handscore
   
+    time.sleep(1)
     print("Score:", score)
 
+    time.sleep(1)
     print("Hands Remaining:", hands)
+    time.sleep(1)
     print("Discards Remaining:", discards, "\n\n")
 
   if score > scoretobeat:
