@@ -140,6 +140,7 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   score = 0
   
   while score < scoretobeat and hands > 0:
+    ans = ""
     handscore = 0
     doubledown = 1
     chips, multiplier = 0, 0
@@ -157,7 +158,7 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
     print("\nValue:", plvalue)
 
     print("\n\nDealer Upcard:")
-    print(dcard, "\nValue:", dvalue)
+    print(dhand[0], "\nValue:", dvalue)
 
     while ans != "stick" and plvalue < 22:
       ans = input("Would you like to: hit, stick, double down, or discard?")
@@ -166,13 +167,31 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       elif ans == "double down":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
         doubledown = 2
+        ans = "stick"
       elif ans == "discard":
+        discards -= 1
+        print("Discards remaining:", discards)
         plhand, plvalue = discard(plhand, plvalue)
+      print("Your cards:")
+      for card in plhand:
+        print(card, end = " ")
+      print("\nValue:", plvalue)
+      hands -= 1
+
+    if plvalue > 21:
+      print("You Went Bust!")
 
     while dvalue < 17:
       ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
+      print("Dealer cards:")
+      for card in dhand:
+        print(card, end = " ")
+      print("\nValue:", dvalue)
 
     if plvalue > 21:
+      print("Score:", score)
+      print("Hands Remaining:", hands)
+      print("Discards Remaining:", discards)
       continue
     
     if plvalue == 21 and len(plhand) == 2:
@@ -181,6 +200,7 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       chips, multiplier = handvalues[plvalue][0], handvalues[plvalue][1]   
 
     for card in plhand:
+      print("Chips:", chips, "Multiplier:", multiplier)
       if card[0] == "A":
         chips += 11
       elif card[0] in ["T", "J", "Q", "K"]:
@@ -188,7 +208,9 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       else:
         chips += int(card[0])
 
-    handscore = chips * multiplier * double down
+    handscore = chips * multiplier * doubledown
+
+    print(chips, "*", multiplier, "*", doubledown, "=", handscore)
 
     if dvalue > 21:
       score += handscore
@@ -196,6 +218,11 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       score += handscore // 2
     elif plvalue > dvalue:
       score += handscore
+  
+    print("Score:", score)
+
+    print("Hands Remaining:", hands)
+    print("Discards Remaining:", discards, "\n\n")
 
   if score > scoretobeat:
     print("You WIN!")
