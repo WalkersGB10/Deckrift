@@ -133,7 +133,7 @@ def discard(hand, value):
         value -= int(selection[0])
   return hand, value
 
-def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
+def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   global handvalues
   random.shuffle(pldeck)
   random.shuffle(ddeck)
@@ -229,5 +229,5 @@ def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   else:
     print("You LOSE!")
 
-smalldealer(decks["standard"], decks["standard"], basedealers[table], [], hands, discards)
+dealer(decks["standard"], decks["standard"], basedealers[table], [], hands, discards)
   
