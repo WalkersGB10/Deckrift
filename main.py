@@ -120,8 +120,8 @@ bossdealers = {
 
 
 
-def playdeckrift():
-  pldeck = choosedeck()
+def playdeckrift(decks, basedealers, table, hands, discards, round, money):
+  pldeck = choosedeck(decks)
   round, money = dealer(pldeck, decks[standard], basedealers[table], [], hands, discards, round, money)
 
 def choosedeck(decks):
@@ -252,7 +252,7 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards, round, money):
       print("\n\nDealer Cards:")
       print(dhand[0], dhand[2], "\nValue:", dvalue)
 
-    while ans != "stick" and plvalue < 22:
+    while ans != "stick" and ans != "stand" and plvalue < 22:
       ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
@@ -359,5 +359,5 @@ def shop(deck, money, jokers, handvalues):
   slot1, slot2, slot3 = random.randint(0,3), random.randint(0,3), random.randint(0,3)
   
 
-round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
-  
+#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
+playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers, ) 
