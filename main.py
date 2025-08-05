@@ -122,8 +122,11 @@ bossdealers = {
 
 
 def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
-  pldeck = choosedeck(decks)
+  deck = choosedeck(decks)
   while True:
+    pldeck = []
+    for card in deck:
+      pldeck.append(card)
     if round % 3 == 1:
       table += 1
     round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
@@ -220,7 +223,6 @@ hands, discards, round, money):
     discards += 1
   elif "Quickdraw" in pljokers:
     hands += 1
-  #print(pldeck)
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
@@ -358,11 +360,12 @@ hands, discards, round, money):
     else:
       money += 5
     money += hands
+    round += 1
+    return round, money
   else:
     print("You LOSE!")
     sys.exit()
-  round += 1
-  return round, money
+  
 
 def shop(deck, money, jokers, handvalues):
   print("You have $" + money)
