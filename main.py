@@ -67,6 +67,11 @@ jokers = [
   ["Wasteful", "+1 Discard per Dealer", 4],
 
   ["Quickdraw", "+1 Hand per Dealer", 4],
+
+  ["Phantom Joker", "Allows You to See Both of the Dealer's Starting Hand", 4],
+
+  ["Jimbo", "+4 Multiplier", 4]
+  
 ]
 
 bossdealers = {
