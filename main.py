@@ -38,7 +38,7 @@ decks = {
 
   "even": [value+suit for suit in suits for value in values if value not in [3, 5, 7, 9]],
 
-  "odd": [value+suit for suit in suits for value in values if value not in [2, 4, 6, 8]],
+  "odd": [value+suit for suit in suits for value in values if value not in [2, 4, 6, 8, "T"]],
 
   "prime": [str(value)+suit for suit in suits for value in ["A", 2, 3, 5, 7]],
 
@@ -122,7 +122,10 @@ bossdealers = {
 
 def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
   pldeck = choosedeck(decks)
-  round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
+  while True:
+    if round % 3 == 0:
+      table += 1
+    round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
 
 def choosedeck(decks):
   for deck in decks.keys():
@@ -218,7 +221,10 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards, round, money):
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
-
+  if round % 3 == 2:
+    scoretobeat *= 1.5
+  elif round % 3 == 0:
+    scoretobeat *= 2
   print("Target Score:", scoretobeat)
   
   while score < scoretobeat and hands > 0:
