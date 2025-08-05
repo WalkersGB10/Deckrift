@@ -120,7 +120,7 @@ bossdealers = {
 
 
 
-def playdeckrift(decks, basedealers, table, hands, discards, round, money):
+def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
   pldeck = choosedeck(decks)
   round, money = dealer(pldeck, decks[standard], basedealers[table], [], hands, discards, round, money)
 
@@ -360,4 +360,4 @@ def shop(deck, money, jokers, handvalues):
   
 
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
-playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers, ) 
+playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
