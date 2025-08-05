@@ -122,7 +122,7 @@ bossdealers = {
 
 def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
   pldeck = choosedeck(decks)
-  round, money = dealer(pldeck, decks[standard], basedealers[table], [], hands, discards, round, money)
+  round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
 
 def choosedeck(decks):
   for deck in decks.keys():
