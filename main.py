@@ -181,6 +181,10 @@ def jokercheck(jokers, hand, chips, multiplier):
 
 def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   global handvalues
+  if "Wasteful" in pljokers:
+    discards += 1
+  elif "Quickdraw" in pljokers:
+    hands += 1
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
