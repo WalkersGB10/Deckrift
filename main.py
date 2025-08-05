@@ -1,6 +1,31 @@
 import random
 import time
 
+basehands = 5
+basediscards = 3
+table = 0
+basedealers = [100, 300, 600, 1000, 2400, 6000]
+handvalues = {
+  4: [5, 1],
+  5: [5, 1],
+  6: [5, 1],
+  7: [5, 1],
+  8: [5, 1],
+  9: [10, 2],
+  10: [10, 2],
+  11: [10, 2],
+  12: [20, 2],
+  13: [30, 3],
+  14: [30, 3],
+  15: [30, 3],
+  16: [30, 3],
+  17: [30, 4],
+  18: [35, 4],
+  19: [40, 4],
+  20: [60, 5],
+  21:  [60, 7],
+  "bj":  [100, 8]
+}
 
 suits = ["S", "H", "C", "D"]
 values = ["A"] + [str(n) for n in range(2, 10)] + ["T", "J", "Q", "K"]
@@ -28,3 +53,41 @@ decks = {
   "countless": [str(value)+suit for suit in suits for value in [7, 8, 9]]*2
 }
 
+bossdealers = {
+  "Ruby": "Disables Diamonds",
+
+  "Heartless": "Disables Hearts",
+
+  "Spadebane": "Disables Spades",
+
+  "Golfer": "Disables Clubs",
+
+  "Jack": "Disables Aces",
+
+  "The Void": "Disables all cards under 5",
+
+  "The Collector": "No Discards",
+
+  "Final Reckoning": "Play only one Hand"
+  }
+
+
+
+
+
+def playdeckrift():
+  pldeck = choosedeck()
+
+def choosedeck(decks):
+  for deck in decks.keys():
+      print(deck)
+  while True:
+    try:
+      deck = input("Which deck would you like?").lower()
+      return decks[deck]
+    except:
+      print("Deck not Found")
+    
+def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
+  random.shuffle(pldeck)
+  random.shuffle(ddeck)
