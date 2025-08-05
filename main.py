@@ -236,7 +236,7 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       else:
         chips += int(card[0])
 
-    chips, multiplier = jokercheck(jokers, plhand, chips, multiplier)
+    chips, multiplier = jokercheck(pljokers, plhand, chips, multiplier)
 
     handscore = chips * multiplier * doubledown
 
