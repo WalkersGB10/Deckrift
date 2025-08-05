@@ -215,16 +215,20 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       print(card, end = " ")
     print("\nValue:", plvalue)
 
-    print("\n\nDealer Upcard:")
-    if dhand[0][0] == "A":
-      print(dhand[0], "\nValue:", 11)
-    elif dhand[0][0] in ["T", "J", "Q", "K"]:
-      print(dhand[0], "\nValue:", 10)
+    if "Phantom Joker" not in pljokers:
+      print("\n\nDealer Upcard:")
+      if dhand[0][0] == "A":
+        print(dhand[0], "\nValue:", 11)
+      elif dhand[0][0] in ["T", "J", "Q", "K"]:
+        print(dhand[0], "\nValue:", 10)
+      else:
+        print(dhand[0], "\nValue:", dhand[0][0])
     else:
-      print(dhand[0], "\nValue:", dhand[0][0])
+      print("\n\nDealer Cards:")
+      print(dhand[0], dhand[2], "\nValue:", dvalue)
 
     while ans != "stick" and plvalue < 22:
-      ans = input("Would you like to: hit, stick, double down, or discard?")
+      ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
       elif ans == "double down":
@@ -243,9 +247,18 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       print("\nValue:", plvalue)
 
     hands -= 1
-    
+
     if plvalue > 21:
+      time.sleep(1)
       print("You Went Bust!")
+
+    time.sleep(1)
+    print("\nDealer cards:")
+    for card in dhand:
+      print(card, end = " ")
+    print("\nValue:", dvalue)
+    print()
+    time.sleep(1)
 
     while dvalue < 17:
       ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
@@ -257,9 +270,13 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
       time.sleep(1)
 
     if plvalue > 21:
+      time.sleep(1)
       print("Score:", score)
+      time.sleep(1)
       print("Hands Remaining:", hands)
+      time.sleep(1)
       print("Discards Remaining:", discards)
+      time.sleep(1)
       continue
     
     if plvalue == 21 and len(plhand) == 2:
@@ -267,15 +284,16 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
     else:
       chips, multiplier = handvalues[plvalue][0], handvalues[plvalue][1]   
 
-    for card in plhand:
-      print("Chips:", chips, "Multiplier:", multiplier)
-      if card[0] == "A":
-        chips += 11
-      elif card[0] in ["T", "J", "Q", "K"]:
-        chips += 10
-      else:
-        chips += int(card[0])
-      time.sleep(1)
+    if plvalue > dvalue or dvalue > 21:
+      for card in plhand:
+        print("Chips:", chips, "Multiplier:", multiplier)
+        if card[0] == "A":
+          chips += 11
+        elif card[0] in ["T", "J", "Q", "K"]:
+          chips += 10
+        else:
+          chips += int(card[0])
+        time.sleep(1)
 
     chips, multiplier = jokercheck(pljokers, plhand, chips, multiplier)
 
