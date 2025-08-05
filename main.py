@@ -53,6 +53,13 @@ decks = {
   "countless": [str(value)+suit for suit in suits for value in [7, 8, 9]]*2
 }
 
+jokers = [
+  ["Jeweler", "+3 Multiplier per Diamond Played"],
+  ["Miner", "+3 Multiplier per Spade Played"],
+  ["Lover", "+3 Multiplier per Heart Played"],
+  ["Botanist", "+3 Multiplier per Club Played"]
+]
+
 bossdealers = {
   "Ruby": "Disables Diamonds",
 
