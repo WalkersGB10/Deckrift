@@ -1,8 +1,8 @@
 import random
 import time
 
-basehands = 5
-basediscards = 3
+hands = 5
+discards = 3
 table = 0
 basedealers = [100, 300, 600, 1000, 2400, 6000]
 handvalues = {
@@ -87,7 +87,34 @@ def choosedeck(decks):
       return decks[deck]
     except:
       print("Deck not Found")
-    
+
+def drawcard(deck, hand, value):
+  card = deck[0]
+  hand.append(card)
+  deck.pop(0)
+  if card[0] in ["T", "J", "Q", "K"]:
+      value += 10
+  elif card[0] == "A":
+    if value <11:
+      value += 11
+    else:
+      value += 1
+  else:
+    value += int(card[0])
+  return deck, hand, value
+
 def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   random.shuffle(pldeck)
   random.shuffle(ddeck)
+  chips, multiplier = 0, 0
+  score = 0
+  dhand, dvalue = [], 0
+  plhand, plvalue = [], 0
+
+  for i in range(0, 2):
+    pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+  
+  
+
+smalldealer(decks["standard"], decks["standard"], basedealers[table], [], hands, discards)
+  
