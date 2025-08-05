@@ -86,10 +86,15 @@ fates = [
 
 crystals = [
   ["Weak Crystal", "Upgrades Hand Totals 4-8", 2],
+  
   ["Moderate Crystal", "Upgrades Hand Totals 9-11", 2],
+  
   ["Strong Crystal", "Upgrades Hand Totals 13-16", 2],
+  
   ["Power Crystal", "Upgrade Hand Totals 17-19", 2],
+  
   ["Supreme Crystal", "Upgrade Hand Totals of 20", 2],
+  
   ["Ultimate Crystal", "Upgrades Blackjacks", 2]
 ]
 
