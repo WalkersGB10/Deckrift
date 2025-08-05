@@ -235,7 +235,7 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
         discards -= 1
         print("Discards remaining:", discards)
         plhand, plvalue = discard(plhand, plvalue)
-      else:
+      elif ans != "stick":
         continue
       print("Your cards:")
       for card in plhand:
