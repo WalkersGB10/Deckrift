@@ -220,13 +220,13 @@ hands, discards, round, money):
     discards += 1
   elif "Quickdraw" in pljokers:
     hands += 1
-    print(pldeck)
+  #print(pldeck)
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
-  if round % 3 == 1:
+  if round % 3 == 0:
     scoretobeat *= 2
-  elif round % 3 == 0:
+  elif round % 3 == 2:
     scoretobeat *= 1.5
   print("Target Score:", scoretobeat)
   
