@@ -1,5 +1,6 @@
 import random
 import time
+import sys
 
 hands = 5
 discards = 3
@@ -357,6 +358,7 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards, round, money):
     money += hands
   else:
     print("You LOSE!")
+    sys.exit()
   round += 1
   return round, money
 
