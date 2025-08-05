@@ -133,6 +133,34 @@ def discard(hand, value):
         value -= int(selection[0])
   return hand, value
 
+def jokercheck(jokers, hand, chips, multiplier):
+  for joker in jokers:
+    if joker == "Jeweler":
+      for card in hand:
+        if card[1] == "D":
+          multiplier += 3
+          print("Chips:", chips, "Multiplier:", multiplier)
+    
+    elif joker == "Miner":
+      for card in hand:
+        if card[1] == "S":
+          multiplier += 3
+          print("Chips:", chips, "Multiplier:", multiplier)
+    
+    elif joker == "Lover":
+      for card in hand:
+        if card[1] == "H":
+          multiplier += 3
+          print("Chips:", chips, "Multiplier:", multiplier)
+    
+    elif joker == "Botanist":
+      for card in hand:
+        if card[1] == "C":
+          multiplier += 3
+          print("Chips:", chips, "Multiplier:", multiplier)
+  
+  return chips, multiplier
+
 def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
   global handvalues
   random.shuffle(pldeck)
@@ -207,6 +235,8 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
         chips += 10
       else:
         chips += int(card[0])
+
+    chips, multiplier = jokercheck(jokers, plhand, chips, multiplier)
 
     handscore = chips * multiplier * doubledown
 
