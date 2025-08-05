@@ -103,18 +103,104 @@ def drawcard(deck, hand, value):
     value += int(card[0])
   return deck, hand, value
 
+def discard(hand, value):
+  selected = input("Enter the cards you would like to discard separated by a space")
+  selected.split()
+  if len(selected) > 3:
+    for selection in range(0, 3):
+      if selected[selection] in hand:
+        hand.remove(selected[selection])
+        if selected[selection][0] == "A":
+          if value > 10:
+            value -= 11
+          else:
+            value -= 1
+        elif selected[selection][0] in ["T", "J", "Q", "K"]:
+          value -= 10
+        else:
+          value -= int(selected[selection[0]])
+  else:
+    for selection in selected:
+      hand.remove(selection)
+      if selection[0] == "A":
+        if value > 10:
+          value -= 11
+        else:
+          value -= 1
+      elif selection[0] in ["T", "J", "Q", "K"]:
+        value -= 10
+      else:
+        value -= int(selection[0])
+  return hand, value
+
 def smalldealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
+  global handvalues
   random.shuffle(pldeck)
   random.shuffle(ddeck)
-  chips, multiplier = 0, 0
   score = 0
-  dhand, dvalue = [], 0
-  plhand, plvalue = [], 0
+  
+  while score < scoretobeat and hands > 0:
+    handscore = 0
+    doubledown = 1
+    chips, multiplier = 0, 0
+    dhand, dvalue = [], 0
+    plhand, plvalue = [], 0
+  
+    for i in range(0, 2):
+      pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+    
+    ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
+    
+    print("Your cards:")
+    for card in plhand:
+      print(card, end = " ")
+    print("\nValue:", plvalue)
 
-  for i in range(0, 2):
-    pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
-  
-  
+    print("\n\nDealer Upcard:")
+    print(dcard, "\nValue:", dvalue)
+
+    while ans != "stick" and plvalue < 22:
+      ans = input("Would you like to: hit, stick, double down, or discard?")
+      if ans == "hit":
+        pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+      elif ans == "double down":
+        pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+        doubledown = 2
+      elif ans == "discard":
+        plhand, plvalue = discard(plhand, plvalue)
+
+    while dvalue < 17:
+      ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
+
+    if plvalue > 21:
+      continue
+    
+    if plvalue == 21 and len(plhand) == 2:
+      chips, multiplier = handvalues["bj"][0], handvalues["bj"][1]
+    else:
+      chips, multiplier = handvalues[plvalue][0], handvalues[plvalue][1]   
+
+    for card in plhand:
+      if card[0] == "A":
+        chips += 11
+      elif card[0] in ["T", "J", "Q", "K"]:
+        chips += 10
+      else:
+        chips += int(card[0])
+
+    handscore = chips * multiplier * double down
+
+    if dvalue > 21:
+      score += handscore
+    elif dvalue == plvalue:
+      score += handscore // 2
+    elif plvalue > dvalue:
+      score += handscore
+
+  if score > scoretobeat:
+    print("You WIN!")
+  else:
+    print("You LOSE!")
 
 smalldealer(decks["standard"], decks["standard"], basedealers[table], [], hands, discards)
   
