@@ -4,6 +4,8 @@ import time
 hands = 5
 discards = 3
 table = 1
+round = 1
+money = 5
 basedealers = [100, 300, 600, 1000, 2400, 6000]
 handvalues = {
   4: [5, 1],
@@ -62,7 +64,7 @@ jokers = [
   
   ["Botanist", "+3 Multiplier per Club Played", 3],
 
-  ["Lifeguard", "Survive if you get 50% requireed score", 6],
+  ["Lifeguard", "Survive if you get 50% required score", 6],
 
   ["Wasteful", "+1 Discard per Dealer", 4],
 
@@ -72,6 +74,14 @@ jokers = [
 
   ["Jimbo", "+4 Multiplier", 4]
   
+]
+
+Fates = [
+  ["The Gambler", "1 in 4 chance of giving a joker. Must have space", 2],
+
+  ["The Twist", "Gives 2 Fates", 2],
+
+  ["The Reckoning", "", 2],
 ]
 
 bossdealers = {
@@ -184,7 +194,7 @@ def jokercheck(jokers, hand, chips, multiplier):
   
   return chips, multiplier
 
-def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
+def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards, round, money):
   global handvalues
   if "Wasteful" in pljokers:
     discards += 1
@@ -319,8 +329,20 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers, hands, discards):
 
   if score > scoretobeat:
     print("You WIN!")
+    if round % 3 == 1:
+      money += 3
+    else:
+      money += 5
+    money += hands
   else:
     print("You LOSE!")
+  round += 1
+  return round, money
 
-dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards)
+def shop(deck, money, jokers, handvalues):
+  print("You have $" + money)
+  slot1, slot2, slot3 = random.randint(0,3), random.randint(0,3), random.randint(0,3)
+  
+
+round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
   
