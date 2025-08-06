@@ -36,7 +36,7 @@ values = ["A"] + [str(n) for n in range(2, 10)] + ["T", "J", "Q", "K"]
 decks = {
   "standard": [value+suit for suit in suits for value in values],
 
-  "noface": [str(value)+suit for suit in suits for value in ["A", 2, 3, 4, 5, 6, 7, 8, 9, "T"],
+  "noface": [str(value)+suit for suit in suits for value in ["A", 2, 3, 4, 5, 6, 7, 8, 9, "T"]],
 
   "even": [str(value)+suit for suit in suits for value in ["A", 2, 4, 6, 8, "T", "J", "Q", "K"]],
 
