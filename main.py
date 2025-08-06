@@ -567,11 +567,10 @@ def shop(deck, money, pljokers, handvalues):
 
   packs, pvariants = shoproll("pack", pvariants)
 
-  displayshop(singles, svariants, packs, pvariants, price)
-
   shopping = True
 
   while shopping:
+    displayshop(singles, svariants, packs, pvariants, price)
     ans = input('''
     If you would like to:
     Reroll Loose Items: Type 'Reroll'
@@ -581,11 +580,11 @@ def shop(deck, money, pljokers, handvalues):
     ''').title()
 
     if ans == "Reroll":
-      money-=price
-      price+=1
-      print("\nShop Rerolled\n")
-      singles, svariants = shoproll("single", svariants)
-      displayshop(singles, svariants, packs, pvariants)
+      if money >= price:
+        money-=price
+        price+=1
+        print("\nShop Rerolled\n")
+        singles, svariants = shoproll("single", svariants)
       print("You have $" + str(money))
       continue
     elif ans == "Continue":
