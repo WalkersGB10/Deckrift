@@ -445,14 +445,17 @@ def shoproll(type, variants):
     for slot in range(0, len(variants)):
       size = random.randint(0, 2)
       if size == 0:
-        items.append(["Standard", "Choose One of Two Items", 4])
+        name = "Standard " + variants[slot] + " Pack"
+        items.append([name, "Choose One of Two Items", 4])
       elif size == 1:
-        items.append(["Big", "Choose One of Four Items", 6])
+        name = "Big " + variants[slot] + " Pack"
+        items.append([name, "Choose One of Four Items", 6])
       else:
-        items.append(["Supreme", "Choose Two of Four Items", 8])
+        name = "Supreme " + variants[slot] + " Pack"
+        items.append([name, "Choose Two of Four Items", 8])
     return items, variants
 
-def displayshop(singles, svariant, packs, pvariants):
+def displayshop(singles, svariants, packs, pvariants):
   print("Loose Items:")
   time.sleep(1)
 
@@ -474,6 +477,7 @@ def browse(item, singles, svariants, packs, pvariants, money):
   for option in packs:
     if item in option:
       print(option[0], option[1])
+    
 
 def shop(deck, money, pljokers, handvalues):
   global jokers
@@ -500,19 +504,19 @@ def shop(deck, money, pljokers, handvalues):
   while shopping:
     ans = input('''If you would like to:
     Reroll Loose Items: Type 'Reroll'
-    Check the Description of an Item: Type the Name of that Item
+    Check the Description of a Loose Item: Type the Name of that Item
     Progress onto the Next Dealer: Type 'Continue\'''')
 
-  if ans == "Reroll":
-    print("Shop Rerolled")
-    singles, svariants = shoproll("single", svariants)
-    displayshop(singles, svariants, packs, pvariants)
-    continue
-  elif ans == "Continue":
-    print("Next Dealer")
-    #return
-  else:
-    browse(ans, singles, svariants, packs, pvariants, money)
+    if ans == "Reroll":
+      print("Shop Rerolled")
+      singles, svariants = shoproll("single", svariants)
+      displayshop(singles, svariants, packs, pvariants)
+      continue
+    elif ans == "Continue":
+      print("Next Dealer")
+      #return
+    else:
+      browse(ans, singles, svariants, packs, pvariants, money)
   
 
 
