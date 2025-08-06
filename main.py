@@ -152,7 +152,8 @@ def usefate(fate, deck, money, pljokers):
 
   elif fate == "The Reckoning":
     index = random.randint(0, len(pljokers))
-    pljokers.pop(index)
+    if len(pljokers) > 0:
+      pljokers.pop(index)
     money += 20
     print("You gained $20")
 
