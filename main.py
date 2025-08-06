@@ -185,6 +185,8 @@ def usecrystal(crystal, handvalues):
   elif crystal == "Power Crystal":
     handvalues["bj"][18] += 40
     handvalues["bj"][18] += 4
+
+  return handvalues
     
 
 def choosedeck(decks):
