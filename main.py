@@ -147,12 +147,12 @@ def usefate(fate, deck, money, pljokers):
         print("No Space")
 
   elif fate == "The Twist":
-    chance = randint(5, 10)
+    chance = random.randint(5, 10)
     money += chance
     print("You gained $" + str(chance))
 
   elif fate == "The Reckoning":
-    index = randint(0, len(pljokers))
+    index = random.randint(0, len(pljokers))
     pljokers.pop(index)
     money += 20
     print("You gained $20")
@@ -162,6 +162,7 @@ def usefate(fate, deck, money, pljokers):
 
 def usecrystal(crystal, handvalues):
   crystal = crystal[0]
+  money -= crystal[2]
   if crystal == "Weak Crystal":
     for index in range(4, 9):
       handvalues[index][0] += 5
@@ -591,6 +592,8 @@ def shop(deck, money, pljokers, handvalues):
     elif ans == "Continue":
       print("Next Dealer")
       print(handvalues)
+      print(pljokers)
+      print(money)
       
       return deck, money, pljokers, handvalues
     else:
