@@ -452,6 +452,29 @@ def shoproll(type, variants):
         items.append(["Supreme", "Choose Two of Four Items", 8])
     return items, variants
 
+def displayshop(singles, svariant, packs, pvariants):
+  print("Loose Items:")
+  time.sleep(1)
+
+  for card in singles:
+    print("$"+str(card[2]), card[0], "("+svariants[singles.index(card)]+")")
+
+  time.sleep(1)
+  print("\nPacks:")
+  time.sleep(1)
+
+  for pack in packs:
+    print("$"+str(pack[2]), pack[0], pvariants[packs.index(pack)], "Pack")
+
+def browse(item, singles, svariants, packs, pvariants, money):
+  for card in singles:
+    if item in card:
+      print(card[0], card[1])
+
+  for option in packs:
+    if item in option:
+      print(option[0], option[1])
+
 def shop(deck, money, pljokers, handvalues):
   global jokers
   global fates
@@ -470,18 +493,26 @@ def shop(deck, money, pljokers, handvalues):
 
   packs, pvariants = shoproll("pack", pvariants)
 
-  print("Loose Items:")
-  time.sleep(1)
+  displayshop(singles, svariants, packs, pvariants)
 
-  for card in singles:
-    print("$"+str(card[2]), card[0], "("+svariants[singles.index(card)]+")")
+  shopping = True
 
-  time.sleep(1)
-  print("\nPacks:")
-  time.sleep(1)
+  while shopping:
+    ans = input('''If you would like to:
+    Reroll Loose Items: Type 'Reroll'
+    Check the Description of an Item: Type the Name of that Item
+    Progress onto the Next Dealer: Type 'Continue\'''')
 
-  for pack in packs:
-    print("$"+str(pack[2]), pack[0], pvariants[packs.index(pack)], "Pack")
+  if ans == "Reroll":
+    print("Shop Rerolled")
+    singles, svariants = shoproll("single", svariants)
+    displayshop(singles, svariants, packs, pvariants)
+    continue
+  elif ans == "Continue":
+    print("Next Dealer")
+    #return
+  else:
+    browse(ans, singles, svariants, packs, pvariants, money)
   
 
 
