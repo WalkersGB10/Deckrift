@@ -577,7 +577,7 @@ def shop(deck, money, pljokers, handvalues):
     Check the Description of a Loose Item: Type the Name of that Item
     Sell a joker: Type 'Sell'
     Progress onto the Next Dealer: Type 'Continue\'
-    ''')
+    ''').title()
 
     if ans == "Reroll":
       money-=price
