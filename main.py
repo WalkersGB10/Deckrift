@@ -7,6 +7,7 @@ discards = 3
 table = 0
 round = 1
 money = 5
+pljokers = []
 basedealers = [100, 300, 600, 1000, 2400, 6000]
 handvalues = {
   4: [5, 1],
@@ -122,6 +123,7 @@ bossdealers = {
 
 
 def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
+  global pljokers
   deck = choosedeck(decks)
   while True:
     pldeck = []
