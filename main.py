@@ -80,7 +80,7 @@ jokers = [
 fates = [
   ["The Gambler", "1 in 4 chance of giving a joker. Must have space", 2],
 
-  ["The Twist", "Gives 2 Fates", 2],
+  ["The Twist", "Gives $5 - $10", 2],
 
   ["The Reckoning", "Destroys a random joker. Gives $20", 2],
 ]
@@ -88,13 +88,13 @@ fates = [
 crystals = [
   ["Weak Crystal", "Upgrades Hand Totals 4-8", 2],
   
-  ["Moderate Crystal", "Upgrades Hand Totals 9-11", 2],
+  ["Moderate Crystal", "Upgrades Hand Totals 9-12", 2],
   
   ["Strong Crystal", "Upgrades Hand Totals 13-16", 2],
   
   ["Power Crystal", "Upgrade Hand Totals 17-19", 2],
   
-  ["Supreme Crystal", "Upgrade Hand Totals of 20", 2],
+  ["Supreme Crystal", "Upgrade Hand Totals 20 and 21", 2],
   
   ["Ultimate Crystal", "Upgrades Blackjacks", 2]
 ]
@@ -130,6 +130,56 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
     if round % 3 == 1:
       table += 1
     round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money, table)
+    deck, money, pljokers, handvalues = shop(deck, money, pljokers, handvalues)
+
+def usefate(fate, deck, money, pljokers):
+  global jokers
+  fate = fate[0]
+  if fate == "The Gambler":
+    money -= 2
+    chance = randint(0, 3)
+    if chance == 3:
+      if len(pljokers) < 5:
+        index = randint(0, len(jokers)-1)
+        pljokers.append(jokers[index])
+        jokers.pop(index)
+      else:
+        print("No Space")
+
+  elif fate == "The Twist":
+    chance = randint(5, 10)
+    money += chance
+    print("You gained $" + str(chance))
+
+  elif fate == "The Reckoning":
+    index = randint(0, len(pljokers))
+    pljokers.pop(index)
+    money += 20
+    print("You gained $20")
+
+
+  return deck, money, pljokers
+
+def usecrystal(crystal, handvalues):
+  crystal = crystal[0]
+  if crystal == "Weak Crystal":
+    for index in range(0, 5):
+      handvalues[index][0], handvalues[index][1] += 5, 1
+  elif crystal == "Moderate Crystal":
+    for index in range(5, 9):
+      handvalues[index][0], handvalues[index][1] += 10, 2
+  elif crystal == "Strong Crystal":
+    for index in range(9, 13):
+      handvalues[index][0], handvalues[index][1] += 20, 2
+  elif crystal == "Power Crystal":
+    for index in range(13, 16):
+      handvalues[index][0], handvalues[index][1] += 20, 3
+  elif crystal == "Supreme Crystal":
+    for index in range(16, 18):
+      handvalues[index][0], handvalues[index][1] += 30, 3
+  elif crystal == "Power Crystal":
+    handvalues[index][18], handvalues[index][18] += 40, 4
+    
 
 def choosedeck(decks):
   for deck in decks.keys():
@@ -429,14 +479,12 @@ def shoproll(type, variants):
         items.pop(slot)
         index = random.randint(0, len(fates)-1)
         items.insert(slot, fates[index])
-        fates.remove(fates[index])
     else:
       variants.append("Crystal")
       if type == "single":
         items.pop(slot)
         index = random.randint(0, len(crystals)-1)
         items.insert(slot, crystals[index])
-        crystals.remove(crystals[index])
 
   if type == "single":
     return items, variants
@@ -455,7 +503,8 @@ def shoproll(type, variants):
         items.append([name, "Choose Two of Four Items", 8])
     return items, variants
 
-def displayshop(singles, svariants, packs, pvariants):
+def displayshop(singles, svariants, packs, pvariants, price):
+  print("$"+str(price), "Reroll\n")
   print("Loose Items:")
   time.sleep(1)
 
@@ -467,22 +516,36 @@ def displayshop(singles, svariants, packs, pvariants):
   time.sleep(1)
 
   for pack in packs:
-    print("$"+str(pack[2]), pack[0], pvariants[packs.index(pack)], "Pack")
+    print("$"+str(pack[2]), pack[0])
 
 def browse(item, singles, svariants, packs, pvariants, money):
   for card in singles:
     if item in card:
-      print(card[0], card[1])
+      print("$"+str(card[2]), card[0]+":", card[1])
+      ans = input("Would you like to purchase", card[0]+"?").lower()[0]
+      if ans == "y":
+        return True, singles.index[card]
+      else:
+        return False
+        
 
   for option in packs:
     if item in option:
-      print(option[0], option[1])
+      print("$"+str(option[2]), option[0]+":", option[1])
+      ans = input("Would you like to purchase", option[0]+"?").lower()[0]
+      if ans == "y":
+        return True, packs.index[option]
+      else:
+        return False
+
+  
     
 
 def shop(deck, money, pljokers, handvalues):
   global jokers
   global fates
   global crystals
+  price = 5
 
   print("-"*15, "Welcome to the Shop", "-"*15)
   print("You have $" + str(money))
@@ -497,26 +560,52 @@ def shop(deck, money, pljokers, handvalues):
 
   packs, pvariants = shoproll("pack", pvariants)
 
-  displayshop(singles, svariants, packs, pvariants)
+  displayshop(singles, svariants, packs, pvariants, price)
 
   shopping = True
 
   while shopping:
-    ans = input('''If you would like to:
+    ans = input('''
+    If you would like to:
     Reroll Loose Items: Type 'Reroll'
     Check the Description of a Loose Item: Type the Name of that Item
-    Progress onto the Next Dealer: Type 'Continue\'''')
+    Sell a joker: Type 'Sell'
+    Progress onto the Next Dealer: Type 'Continue\'
+    ''')
 
     if ans == "Reroll":
-      print("Shop Rerolled")
+      money-=price
+      price+=1
+      print("\nShop Rerolled\n")
       singles, svariants = shoproll("single", svariants)
       displayshop(singles, svariants, packs, pvariants)
       continue
     elif ans == "Continue":
       print("Next Dealer")
-      #return
+      print(handvalues)
+      
+      return deck, money, pljokers, handvalues
     else:
-      browse(ans, singles, svariants, packs, pvariants, money)
+      buy, index = browse(ans, singles, svariants, packs, pvariants, money)
+
+      if buy == False:
+        continue
+      else:
+        if ans in singles[index]:
+          ans = singles[index]
+          if ans in fates:
+            deck, money, pljokers = usefate(ans, deck, money, pljokers)
+            continue
+          elif ans in crystals:
+            handvalues = usecrystal(ans, handvalues)
+            continue
+          else:
+            if len(pljokers) < 5:
+              if money >= ans[2]:
+                money -= ans[2]
+                pljokers.append(ans[0])
+                continue
+                
   
 
 
