@@ -288,8 +288,6 @@ hands, discards, round, money, table):
         print(card, end = " ")
       print("\nValue:", plvalue)
 
-      if plvalue == 21:
-        ans = "stick"
       ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
@@ -307,10 +305,15 @@ hands, discards, round, money, table):
           continue
       elif ans != "stick":
         continue
-      print("Your cards:")
-      for card in plhand:
-        print(card, end = " ")
-      print("\nValue:", plvalue)
+      
+      if plvalue == 21:
+        ans = "stick"
+        continue
+
+    print("Your cards:")
+    for card in plhand:
+      print(card, end = " ")
+    print("\nValue:", plvalue)
 
     hands -= 1
 
@@ -415,36 +418,38 @@ def shoproll(type, variants):
   for slot in range(0, len(items)):
     if items[slot] == 0:
       variants.append("Joker")
-      items.pop(slot)
       if type == "single":
+        items.pop(slot)
         index = random.randint(0, len(jokers)-1)
-        items.insert(jokers[index])
+        items.insert(slot, jokers[index])
         jokers.remove(jokers[index])
     elif items[slot] == 1:
       variants.append("Fate")
-      items.pop(slot)
       if type == "single":
+        items.pop(slot)
         index = random.randint(0, len(fates)-1)
-        items.insert(fates[index])
+        items.insert(slot, fates[index])
         fates.remove(fates[index])
     else:
       variants.append("Crystal")
-      items.pop(slot)
       if type == "single":
+        items.pop(slot)
         index = random.randint(0, len(crystals)-1)
-        items.insert(crystals[index])
+        items.insert(slot, crystals[index])
         crystals.remove(crystals[index])
 
   if type == "single":
     return items, variants
   else:
-    size = randint(0, 2)
-    if size == 0:
-      items.append("Standard")
-    elif size == 1:
-      items.append("Big")
-    else:
-      items.append("Supreme")
+    items = []
+    for slot in range(0, len(variants)):
+      size = random.randint(0, 2)
+      if size == 0:
+        items.append(["Standard", "Choose One of Two Items", 4])
+      elif size == 1:
+        items.append(["Big", "Choose One of Four Items", 6])
+      else:
+        items.append(["Supreme", "Choose Two of Four Items", 8])
     return items, variants
 
 def shop(deck, money, pljokers, handvalues):
@@ -460,38 +465,27 @@ def shop(deck, money, pljokers, handvalues):
 
   packs = []
   pvariants = []
-  '''
-  for index in range(0,2):
-    singles.append(random.randint(0,2))
-  for slot in range(0, len(singles)):
-    if singles[slot] == 0:
-      svariants.append("Joker")
-      singles.pop(slot)
-      index = random.randint(0, len(jokers)-1)
-      singles.insert(slot, jokers[index])
-      jokers.remove(jokers[index])
-    elif singles[slot] == 1:
-      svariants.append("Fate")
-      singles.pop(slot)
-      index = random.randint(0, len(fates)-1)
-      singles.insert(slot, fates[index])
-      fates.remove(fates[index])
-    else:
-      singles.pop(slot)
-      svariants.append("Crystal")
-      index = random.randint(0, len(crystals)-1)
-      singles.insert(slot, crystals[random.randint(0, len(crystals)-1)])
-      crystals.remove(crystals[index])
-  '''
+  
   singles, svariants = shoproll("single", svariants)
+
+  packs, pvariants = shoproll("pack", pvariants)
+
   print("Loose Items:")
+  time.sleep(1)
 
   for card in singles:
     print("$"+str(card[2]), card[0], "("+svariants[singles.index(card)]+")")
+
+  time.sleep(1)
+  print("\nPacks:")
+  time.sleep(1)
+
+  for pack in packs:
+    print("$"+str(pack[2]), pack[0], pvariants[packs.index(pack)], "Pack")
   
 
 
 #TESTING
-round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
+#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
 shop(decks["standard"], money, [], handvalues)
 #playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
