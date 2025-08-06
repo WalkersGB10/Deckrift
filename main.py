@@ -534,7 +534,7 @@ def browse(item, singles, svariants, packs, pvariants, money):
       if ans == "y":
         return True, singles.index(card)
       else:
-        return False
+        return False, 0
         
 
   for option in packs:
@@ -610,16 +610,24 @@ def shop(deck, money, pljokers, handvalues):
               singles.remove(ans)
               money -= ans[2]
               deck, money, pljokers = usefate(ans, deck, money, pljokers)
-            print("You have $" + str(money))
-            continue
+              print("You have $" + str(money))
+              continue
+            else:
+              print("You don't have enough money for this")
+              print("You have $" + str(money))
+              continue
           elif ans in crystals:
             if money >= ans[2]:
               svariants.remove(singles.index(ans))
               singles.remove(ans)
               money -= ans[2]
               handvalues = usecrystal(ans, handvalues)
-            print("You have $" + str(money))
-            continue
+              print("You have $" + str(money))
+              continue
+            else:
+              print("You don't have enough money for this")
+              print("You have $" + str(money))
+              continue
           else:
             if len(pljokers) < 5:
               if money >= ans[2]:
@@ -627,6 +635,10 @@ def shop(deck, money, pljokers, handvalues):
                 singles.remove(ans)
                 money -= ans[2]
                 pljokers.append(ans[0])
+                print("You have $" + str(money))
+                continue
+              else:
+                print("You don't have enough money for this")
                 print("You have $" + str(money))
                 continue
                 
