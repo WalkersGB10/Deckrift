@@ -36,11 +36,11 @@ values = ["A"] + [str(n) for n in range(2, 10)] + ["T", "J", "Q", "K"]
 decks = {
   "standard": [value+suit for suit in suits for value in values],
 
-  "noface": [value+suit for suit in suits for value in values if value not in ["J", "Q", "K"]],
+  "noface": [str(value)+suit for suit in suits for value in ["A", 2, 3, 4, 5, 6, 7, 8, 9, "T"],
 
-  "even": [value+suit for suit in suits for value in ["A", 2, 4, 6, 8, "T", "J", "Q", "K"]],
+  "even": [str(value)+suit for suit in suits for value in ["A", 2, 4, 6, 8, "T", "J", "Q", "K"]],
 
-  "odd": [value+suit for suit in suits for value in ["A", 3, 5, 7, 9, "J", "Q", "K"]],
+  "odd": [str(value)+suit for suit in suits for value in ["A", 3, 5, 7, 9, "J", "Q", "K"]],
 
   "prime": [str(value)+suit for suit in suits for value in ["A", 2, 3, 5, 7]] * 2,
 
