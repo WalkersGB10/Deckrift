@@ -606,7 +606,7 @@ def shop(deck, money, pljokers, handvalues):
           ans = singles[index]
           if ans in fates:
             if money >= ans[2]:
-              svariants.remove(singles.index(ans))
+              svariants.pop(singles.index(ans))
               singles.remove(ans)
               money -= ans[2]
               deck, money, pljokers = usefate(ans, deck, money, pljokers)
@@ -618,7 +618,7 @@ def shop(deck, money, pljokers, handvalues):
               continue
           elif ans in crystals:
             if money >= ans[2]:
-              svariants.remove(singles.index(ans))
+              svariants.pop(singles.index(ans))
               singles.remove(ans)
               money -= ans[2]
               handvalues = usecrystal(ans, handvalues)
@@ -631,7 +631,7 @@ def shop(deck, money, pljokers, handvalues):
           else:
             if len(pljokers) < 5:
               if money >= ans[2]:
-                svariants.remove(singles.index(ans))
+                svariants.pop(singles.index(ans))
                 singles.remove(ans)
                 money -= ans[2]
                 pljokers.append(ans[0])
