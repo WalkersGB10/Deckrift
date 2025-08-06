@@ -590,10 +590,6 @@ def shop(deck, money, pljokers, handvalues):
       continue
     elif ans == "Continue":
       print("Next Dealer")
-      print(handvalues)
-      print(pljokers)
-      print(money)
-      
       return deck, money, pljokers, handvalues
     else:
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
@@ -647,5 +643,5 @@ def shop(deck, money, pljokers, handvalues):
 
 #TESTING
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
-shop(decks["standard"], money, [], handvalues)
-#playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+#shop(decks["standard"], money, [], handvalues)
+playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
