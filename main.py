@@ -136,7 +136,6 @@ def usefate(fate, deck, money, pljokers):
   global jokers
   fate = fate[0]
   if fate == "The Gambler":
-    money -= 2
     chance = randint(0, 3)
     if chance == 3:
       if len(pljokers) < 5:
@@ -162,7 +161,6 @@ def usefate(fate, deck, money, pljokers):
 
 def usecrystal(crystal, handvalues):
   crystal = crystal[0]
-  money -= crystal[2]
   if crystal == "Weak Crystal":
     for index in range(4, 9):
       handvalues[index][0] += 5
@@ -588,6 +586,7 @@ def shop(deck, money, pljokers, handvalues):
       print("\nShop Rerolled\n")
       singles, svariants = shoproll("single", svariants)
       displayshop(singles, svariants, packs, pvariants)
+      print("You have $" + str(money))
       continue
     elif ans == "Continue":
       print("Next Dealer")
@@ -600,21 +599,29 @@ def shop(deck, money, pljokers, handvalues):
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
 
       if buy == False:
+        print("You have $" + str(money))
         continue
       else:
         if ans in singles[index]:
           ans = singles[index]
           if ans in fates:
-            deck, money, pljokers = usefate(ans, deck, money, pljokers)
+            if money >= ans[2]:
+              money -= ans[2]
+              deck, money, pljokers = usefate(ans, deck, money, pljokers)
+            print("You have $" + str(money))
             continue
           elif ans in crystals:
-            handvalues = usecrystal(ans, handvalues)
+            if money >= ans[2]:
+              money -= ans[2]
+              handvalues = usecrystal(ans, handvalues)
+            print("You have $" + str(money))
             continue
           else:
             if len(pljokers) < 5:
               if money >= ans[2]:
                 money -= ans[2]
                 pljokers.append(ans[0])
+                print("You have $" + str(money))
                 continue
                 
   
