@@ -403,7 +403,49 @@ hands, discards, round, money, table):
       print("You LOSE!")
       sys.exit()
       
+def shoproll(type, variants):
+  global jokers
+  global fates
+  global crystals
   
+  items = []
+  variants = []
+  for index in range(0, 2):
+    items.append(random.randint(0,2))
+  for slot in range(0, len(items)):
+    if items[slot] == 0:
+      variants.append("Joker")
+      items.pop(slot)
+      if type == "single":
+        index = random.randint(0, len(jokers)-1)
+        items.insert(jokers[index])
+        jokers.remove(jokers[index])
+    elif items[slot] == 1:
+      variants.append("Fate")
+      items.pop(slot)
+      if type == "single":
+        index = random.randint(0, len(fates)-1)
+        items.insert(fates[index])
+        fates.remove(fates[index])
+    else:
+      variants.append("Crystal")
+      items.pop(slot)
+      if type == "single":
+        index = random.randint(0, len(crystals)-1)
+        items.insert(crystals[index])
+        crystals.remove(crystals[index])
+
+  if type == "single":
+    return items, variants
+  else:
+    size = randint(0, 2)
+    if size == 0:
+      items.append("Standard")
+    elif size == 1:
+      items.append("Big")
+    else:
+      items.append("Supreme")
+    return items, variants
 
 def shop(deck, money, pljokers, handvalues):
   global jokers
@@ -414,33 +456,38 @@ def shop(deck, money, pljokers, handvalues):
   print("You have $" + str(money))
   print()
   singles = []
-  variants = []
-  for index in range(0,3):
+  svariants = []
+
+  packs = []
+  pvariants = []
+  '''
+  for index in range(0,2):
     singles.append(random.randint(0,2))
   for slot in range(0, len(singles)):
     if singles[slot] == 0:
-      variants.append("Joker")
+      svariants.append("Joker")
       singles.pop(slot)
       index = random.randint(0, len(jokers)-1)
       singles.insert(slot, jokers[index])
       jokers.remove(jokers[index])
     elif singles[slot] == 1:
-      variants.append("Fate")
+      svariants.append("Fate")
       singles.pop(slot)
       index = random.randint(0, len(fates)-1)
       singles.insert(slot, fates[index])
       fates.remove(fates[index])
     else:
       singles.pop(slot)
-      variants.append("Crystal")
+      svariants.append("Crystal")
       index = random.randint(0, len(crystals)-1)
       singles.insert(slot, crystals[random.randint(0, len(crystals)-1)])
       crystals.remove(crystals[index])
-
+  '''
+  singles, svariants = shoproll("single", svariants)
   print("Loose Items:")
 
   for card in singles:
-    print("$"+str(card[2]), card[0], "("+variants[singles.index(card)]+")")
+    print("$"+str(card[2]), card[0], "("+svariants[singles.index(card)]+")")
   
 
 
