@@ -65,7 +65,7 @@ jokers = [
   
   ["Botanist", "+3 Multiplier per Club Played", 3],
 
-  ["Lifeguard", "Survive if you get 50% required score", 6],
+  ["Lifeguard", "Survive if you get 50% required score. Self Destructs on Use", 6],
 
   ["Wasteful", "+1 Discard per Dealer", 4],
 
@@ -129,7 +129,7 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
       pldeck.append(card)
     if round % 3 == 1:
       table += 1
-    round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money)
+    round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money, table)
 
 def choosedeck(decks):
   for deck in decks.keys():
@@ -217,8 +217,11 @@ def jokercheck(jokers, hand, chips, multiplier):
   return chips, multiplier
 
 def dealer(pldeck, ddeck, scoretobeat, pljokers, 
-hands, discards, round, money):
+hands, discards, round, money, table):
   global handvalues
+
+print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
+  
   if "Wasteful" in pljokers:
     discards += 1
   elif "Quickdraw" in pljokers:
@@ -409,6 +412,6 @@ def shop(deck, money, pljokers, handvalues):
 
 
 #TESTING
-#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
+#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money, table)
 shop(decks["standard"], 5, [], handvalues)
 #playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
