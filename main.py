@@ -129,7 +129,7 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
       pldeck.append(card)
     if round % 3 == 1:
       table += 1
-    round, money = dealer(pldeck, decks["standard"], basedealers[table], [], hands, discards, round, money, table)
+    round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, hands, discards, round, money, table)
     deck, money, pljokers, handvalues = shop(deck, money, pljokers, handvalues)
 
 def usefate(fate, deck, money, pljokers):
