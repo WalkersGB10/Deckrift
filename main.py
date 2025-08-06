@@ -220,7 +220,7 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers,
 hands, discards, round, money, table):
   global handvalues
 
-print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
+  print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
   
   if "Wasteful" in pljokers:
     discards += 1
@@ -357,8 +357,9 @@ print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
     print("Hands Remaining:", hands)
     time.sleep(1)
     print("Discards Remaining:", discards, "\n\n")
+    time.sleep(1)
 
-  if score > scoretobeat:
+  if score >= scoretobeat:
     print("You WIN!")
     if round % 3 == 1:
       money += 3
@@ -368,8 +369,15 @@ print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
     round += 1
     return round, money
   else:
-    print("You LOSE!")
-    sys.exit()
+    if "Lifeguard" in pljokers and score*2 >= scoretobeat:
+      pljokers.remove("Lifeguard")
+      print("Saved by lifeguard")
+      round += 1
+      return round, money
+    else:
+      print("You LOSE!")
+      sys.exit()
+      
   
 
 def shop(deck, money, pljokers, handvalues):
@@ -412,6 +420,6 @@ def shop(deck, money, pljokers, handvalues):
 
 
 #TESTING
-#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money, table)
-shop(decks["standard"], 5, [], handvalues)
+round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money, table)
+shop(decks["standard"], money, [], handvalues)
 #playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
