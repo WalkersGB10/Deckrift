@@ -38,9 +38,9 @@ decks = {
 
   "noface": [value+suit for suit in suits for value in values if value not in ["J", "Q", "K"]],
 
-  "even": [value+suit for suit in suits for value in values if value not in [3, 5, 7, 9]],
+  "even": [value+suit for suit in suits for value in ["A", 2, 4, 6, 8, "T", "J", "Q", "K"]],
 
-  "odd": [value+suit for suit in suits for value in values if value not in [2, 4, 6, 8, "T"]],
+  "odd": [value+suit for suit in suits for value in ["A", 3, 5, 7, 9, "J", "Q", "K"]],
 
   "prime": [str(value)+suit for suit in suits for value in ["A", 2, 3, 5, 7]] * 2,
 
