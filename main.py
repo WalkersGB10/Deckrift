@@ -164,21 +164,27 @@ def usecrystal(crystal, handvalues):
   crystal = crystal[0]
   if crystal == "Weak Crystal":
     for index in range(0, 5):
-      handvalues[index][0], handvalues[index][1] += 5, 1
+      handvalues[index][0] += 5
+      handvalues[index][1] += 1
   elif crystal == "Moderate Crystal":
     for index in range(5, 9):
-      handvalues[index][0], handvalues[index][1] += 10, 2
+      handvalues[index][0] += 10
+      handvalues[index][1] += 2
   elif crystal == "Strong Crystal":
     for index in range(9, 13):
-      handvalues[index][0], handvalues[index][1] += 20, 2
+      handvalues[index][0] += 20
+      handvalues[index][1] += 2
   elif crystal == "Power Crystal":
     for index in range(13, 16):
-      handvalues[index][0], handvalues[index][1] += 20, 3
+      handvalues[index][0] += 20
+      handvalues[index][1] += 3
   elif crystal == "Supreme Crystal":
     for index in range(16, 18):
-      handvalues[index][0], handvalues[index][1] += 30, 3
+      handvalues[index][0] += 30
+      handvalues[index][1] += 3
   elif crystal == "Power Crystal":
-    handvalues[index][18], handvalues[index][18] += 40, 4
+    handvalues[index][18] += 40
+    handvalues[index][18] += 4
     
 
 def choosedeck(decks):
