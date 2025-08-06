@@ -82,7 +82,7 @@ fates = [
 
   ["The Twist", "Gives 2 Fates", 2],
 
-  ["The Reckoning", "", 2],
+  ["The Reckoning", "Destroys a random joker. Gives $20", 2],
 ]
 
 crystals = [
@@ -264,6 +264,8 @@ hands, discards, round, money):
       print(dhand[0], dhand[2], "\nValue:", dvalue)
 
     while ans != "stick" and ans != "stand" and plvalue < 22:
+      if plvalue == 21:
+        ans = "stick"
       ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
@@ -367,10 +369,46 @@ hands, discards, round, money):
     sys.exit()
   
 
-def shop(deck, money, jokers, handvalues):
-  print("You have $" + money)
-  slot1, slot2, slot3 = random.randint(0,3), random.randint(0,3), random.randint(0,3)
+def shop(deck, money, pljokers, handvalues):
+  global jokers
+  global fates
+  global crystals
+
+  print("-"*15, "Welcome to the Shop", "-"*15)
+  print("You have $" + str(money))
+  print()
+  singles = []
+  variants = []
+  for index in range(0,3):
+    singles.append(random.randint(0,2))
+  for slot in range(0, len(singles)):
+    if singles[slot] == 0:
+      variants.append("Joker")
+      singles.pop(slot)
+      index = random.randint(0, len(jokers)-1)
+      singles.insert(slot, jokers[index])
+      jokers.remove(jokers[index])
+    elif singles[slot] == 1:
+      variants.append("Fate")
+      singles.pop(slot)
+      index = random.randint(0, len(fates)-1)
+      singles.insert(slot, fates[index])
+      fates.remove(fates[index])
+    else:
+      singles.pop(slot)
+      variants.append("Crystal")
+      index = random.randint(0, len(crystals)-1)
+      singles.insert(slot, crystals[random.randint(0, len(crystals)-1)])
+      crystals.remove(crystals[index])
+
+  print("Loose Items:")
+
+  for card in singles:
+    print("$"+str(card[2]), card[0], "("+variants[singles.index(card)]+")")
   
 
+
+#TESTING
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Botanist"], hands, discards, round, money)
-playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+shop(decks["standard"], 5, [], handvalues)
+#playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
