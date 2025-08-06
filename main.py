@@ -163,28 +163,28 @@ def usefate(fate, deck, money, pljokers):
 def usecrystal(crystal, handvalues):
   crystal = crystal[0]
   if crystal == "Weak Crystal":
-    for index in range(0, 5):
+    for index in range(4, 9):
       handvalues[index][0] += 5
       handvalues[index][1] += 1
   elif crystal == "Moderate Crystal":
-    for index in range(5, 9):
+    for index in range(9, 13):
       handvalues[index][0] += 10
       handvalues[index][1] += 2
   elif crystal == "Strong Crystal":
-    for index in range(9, 13):
+    for index in range(13, 17):
       handvalues[index][0] += 20
       handvalues[index][1] += 2
   elif crystal == "Power Crystal":
-    for index in range(13, 16):
+    for index in range(17, 20):
       handvalues[index][0] += 20
       handvalues[index][1] += 3
   elif crystal == "Supreme Crystal":
-    for index in range(16, 18):
+    for index in range(20, 22):
       handvalues[index][0] += 30
       handvalues[index][1] += 3
   elif crystal == "Power Crystal":
-    handvalues[index][18] += 40
-    handvalues[index][18] += 4
+    handvalues["bj"][18] += 40
+    handvalues["bj"][18] += 4
     
 
 def choosedeck(decks):
@@ -528,9 +528,9 @@ def browse(item, singles, svariants, packs, pvariants, money):
   for card in singles:
     if item in card:
       print("$"+str(card[2]), card[0]+":", card[1])
-      ans = input("Would you like to purchase", card[0]+"?").lower()[0]
+      ans = input("Would you like to purchase " + card[0]+"?").lower()[0]
       if ans == "y":
-        return True, singles.index[card]
+        return True, singles.index(card)
       else:
         return False
         
@@ -538,9 +538,9 @@ def browse(item, singles, svariants, packs, pvariants, money):
   for option in packs:
     if item in option:
       print("$"+str(option[2]), option[0]+":", option[1])
-      ans = input("Would you like to purchase", option[0]+"?").lower()[0]
+      ans = input("Would you like to purchase " + option[0]+"?").lower()[0]
       if ans == "y":
-        return True, packs.index[option]
+        return True, packs.index(option)
       else:
         return False
 
