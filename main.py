@@ -571,7 +571,7 @@ def openpack(pack):
 
   if "Fate" in name:  
     for option in range(size):
-      index = random.randint(0, len(fates))
+      index = random.randint(0, len(fates)-1)
       options.append(fates[index])
       indexes.append(index)
      
@@ -590,7 +590,7 @@ def openpack(pack):
 
   elif "Crystal" in name:  
     for option in range(size):
-      index = random.randint(0, len(crystals))
+      index = random.randint(0, len(crystals)-1)
       options.append(crystals[index])
       indexes.append(index)
     while choices > 0:
@@ -610,7 +610,7 @@ def openpack(pack):
 
   elif "Joker" in name:  
     for option in range(size):
-      index = random.randint(0, len(jokers))
+      index = random.randint(0, len(jokers)-1)
       options.append(jokers[index])
       indexes.append(index)
     while choices > 0:
