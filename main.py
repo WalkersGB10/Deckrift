@@ -744,3 +744,4 @@ def shop(deck, money, pljokers, handvalues):
 #playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
 shop(decks["standard"], money, pljokers, handvalues)
 print(pljokers)
+print(handvalues)
