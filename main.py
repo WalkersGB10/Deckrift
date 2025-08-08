@@ -8,7 +8,7 @@ table = 0
 round = 1
 money = 5
 pljokers = []
-basedealers = [100, 300, 600, 1000, 2400, 6000]
+basedealers = [100, 300, 600, 1000, 2400, 6000, 12000, 25000, 50000]
 handvalues = {
   4: [5, 1],
   5: [5, 1],
@@ -131,6 +131,9 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
       pldeck.append(card)
     if round % 3 == 1:
       table += 1
+    if table == 9:
+      print("You Beat My Game!")
+      sys.exit()
     round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, hands, discards, round, money, table)
     deck, money, pljokers, handvalues = shop(deck, money, pljokers, handvalues)
 
