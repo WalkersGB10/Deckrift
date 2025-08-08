@@ -210,6 +210,11 @@ def choosedeck(decks):
 def countvalue(plhand):
   value = 0
   for card in plhand:
+    if card[0] == "A":
+      plhand.append(card[0])
+      plhand.pop(0)
+  
+  for card in plhand:
     if card[0] in ["T", "J", "Q", "K"]:
         value += 10
     elif card[0] == "A":
