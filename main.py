@@ -209,10 +209,11 @@ def choosedeck(decks):
 
 def countvalue(plhand):
   value = 0
+
   for card in plhand:
     if card[0] == "A":
-      plhand.append(card[0])
-      plhand.pop(0)
+      plhand.append(card)
+      plhand.remove(card)
   
   for card in plhand:
     if card[0] in ["T", "J", "Q", "K"]:
@@ -350,7 +351,7 @@ hands, discards, round, money, table):
       print("\n\nDealer Cards:")
       print(dhand[0], dhand[2], "\nValue:", dvalue)
 
-    while ans != "stick" and ans != "stand" and plvalue < 22:
+    while ans != "stick" and ans != "stand":
 
       while len(plhand) < 2:
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
@@ -362,6 +363,10 @@ hands, discards, round, money, table):
       for card in plhand:
         print(card, end = " ")
       print("\nValue:", plvalue)
+
+      if plvalue == 21:
+        ans = "stick"
+        continue
 
       ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
@@ -381,9 +386,10 @@ hands, discards, round, money, table):
       elif ans != "stick":
         continue
       
-      if plvalue == 21:
-        ans = "stick"
-        continue
+      plvalue = countvalue(plhand)
+
+      if plvalue > 21:
+        break
 
     print("Your cards:")
     for card in plhand:
@@ -761,9 +767,4 @@ def shop(deck, money, pljokers, handvalues):
 #TESTING
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
 #shop(decks["standard"], money, [], handvalues)
-#playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
-deck = "standard"
-shop(deck, money, pljokers, handvalues)
-print(pljokers)
-print(handvalues)
-print(jokers)
+playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
