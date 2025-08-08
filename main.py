@@ -138,14 +138,17 @@ def usefate(fate, deck, money, pljokers):
   global jokers
   fate = fate[0]
   if fate == "The Gambler":
-    chance = randint(0, 3)
+    chance = random.randint(0, 3)
     if chance == 3:
       if len(pljokers) < 5:
-        index = randint(0, len(jokers)-1)
-        pljokers.append(jokers[index])
+        print("You received a joker")
+        index = random.randint(0, len(jokers)-1)
+        pljokers.append(jokers[index][0])
         jokers.pop(index)
       else:
         print("No Space")
+    else:
+      print("NOPE")
 
   elif fate == "The Twist":
     chance = random.randint(5, 10)
@@ -548,11 +551,10 @@ def browse(item, singles, svariants, packs, pvariants, money):
       else:
         return False
 
-def openpack(pack):
+def openpack(pack, money):
   global handvalues
   global pljokers
   global deck
-  global money
   global jokers
 
   name = pack[0]
@@ -583,10 +585,13 @@ def openpack(pack):
         return
       for option in options:
         if ans in option:
-          deck, money, pljokers = usefate(ans, deck, money, pljokers)
+          print(money)
+          deck, money, pljokers = usefate(option, deck, money, pljokers)
+          print(money)
           options.remove(option)
           choices -= 1
-    return
+          break
+    return money
 
   elif "Crystal" in name:  
     for option in range(size):
@@ -603,10 +608,11 @@ def openpack(pack):
         return
       for option in options:
         if ans in option:
-          handvalues = usecrystal(ans, handvalues)
+          handvalues = usecrystal(option, handvalues)
           options.remove(option)
           choices -= 1
-    return
+          break
+    return money
 
   elif "Joker" in name:  
     for option in range(size):
@@ -625,9 +631,11 @@ def openpack(pack):
         if ans in option:
           if len(pljokers) < 5:
             pljokers.append(option[0])
+            jokers.remove(option)
           options.remove(option)
           choices -= 1
-    return
+          break
+    return money
     
     
 def shop(deck, money, pljokers, handvalues):
@@ -726,7 +734,7 @@ def shop(deck, money, pljokers, handvalues):
             pvariants.pop(packs.index(ans))
             packs.remove(ans)
             money -= ans[2]
-            openpack(ans)
+            money = openpack(ans, money)
             print("You have $" + str(money))
             continue
           else:
@@ -742,6 +750,8 @@ def shop(deck, money, pljokers, handvalues):
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
 #shop(decks["standard"], money, [], handvalues)
 #playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
-shop(decks["standard"], money, pljokers, handvalues)
+deck = "standard"
+shop(deck, money, pljokers, handvalues)
 print(pljokers)
 print(handvalues)
+print(jokers)
