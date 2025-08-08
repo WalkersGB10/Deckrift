@@ -548,9 +548,88 @@ def browse(item, singles, svariants, packs, pvariants, money):
       else:
         return False
 
-  
-    
+def openpack(pack):
+  global handvalues
+  global pljokers
+  global deck
+  global money
+  global jokers
 
+  name = pack[0]
+  options = []
+  indexes = []
+  
+  if "Standard" in name:
+    size = 2
+    choices = 1
+  elif "Big" in name:
+    size = 4
+    choices = 1
+  else:
+    size = 4
+    choices = 2
+
+  if "Fate" in name:  
+    for option in range(size):
+      index = randint(0, len(fates))
+      options.append(fates[index])
+      indexes.append(index)
+     
+    while choices > 0:
+      for option in options:
+        print(option[0] + ":", option[1])
+      ans = input("Type the name of the fate you would like or 'Skip' if you wouldn't like any of them")
+      if ans == "Skip":
+        return
+      for option in options:
+        if ans in option:
+          deck, money, pljokers = usefate(ans, deck, money, pljokers)
+          options.remove(option)
+          choices -= 1
+    return
+
+  elif "Crystal" in name:  
+    for option in range(size):
+      index = randint(0, len(crystals))
+      options.append(crystals[index])
+      indexes.append(index)
+    while choices > 0:
+      for option in options:
+        print(option[0] + ":", option[1])
+        
+      print("You have", choices, "choices remaining")
+      ans = input("Type the name of the crystal you would like or 'Skip' if you wouldn't like any of them")
+      if ans == "Skip":
+        return
+      for option in options:
+        if ans in option:
+          handvalues = usecrystal(ans, handvalues)
+          options.remove(option)
+          choices -= 1
+    return
+
+  elif "Joker" in name:  
+    for option in range(size):
+      index = randint(0, len(jokers))
+      options.append(jokers[index])
+      indexes.append(index)
+    while choices > 0:
+      for option in options:
+        print(option[0] + ":", option[1])
+        
+      print("You have", choices, "choices remaining")
+      ans = input("Type the name of the joker you would like or 'Skip' if you wouldn't like any of them")
+      if ans == "Skip":
+        return
+      for option in options:
+        if ans in option:
+          if len(pljokers) < 5:
+            pljokers.append(option[0])
+          options.remove(option)
+          choices -= 1
+    return
+    
+    
 def shop(deck, money, pljokers, handvalues):
   global jokers
   global fates
@@ -593,6 +672,8 @@ def shop(deck, money, pljokers, handvalues):
     elif ans == "Continue":
       print("Next Dealer")
       return deck, money, pljokers, handvalues
+    elif ans == "Sell":
+      print("Selling code to go on line 613")
     else:
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
 
@@ -639,6 +720,20 @@ def shop(deck, money, pljokers, handvalues):
                 print("You don't have enough money for this")
                 print("You have $" + str(money))
                 continue
+        elif ans in packs[index]:
+          ans = packs[index]
+          if money >= ans[2]:
+            pvariants.pop(packs.index(ans))
+            packs.remove(ans)
+            money -= ans[2]
+            openpack(ans)
+            print("You have $" + str(money))
+            continue
+          else:
+            print("You don't have enough money for this")
+            print("You have $" + str(money))
+            continue
+            
                 
   
 
@@ -647,3 +742,5 @@ def shop(deck, money, pljokers, handvalues):
 #round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
 #shop(decks["standard"], money, [], handvalues)
 playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+shop(decks["standard"], money, pljokers, handvalues)
+print(pljokers)
