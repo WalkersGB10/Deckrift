@@ -486,7 +486,11 @@ hands, discards, round, money, table):
     else:
       print("You LOSE!")
       sys.exit()
-      
+
+def bossdealer(pldeck, ddeck, scoretobeat, pljokers, 
+hands, discards, round, money, table):
+  global handvalues
+
 def shoproll(type, variants):
   global jokers
   global fates
@@ -699,7 +703,16 @@ def shop(deck, money, pljokers, handvalues):
       print("Next Dealer")
       return deck, money, pljokers, handvalues
     elif ans == "Sell":
-      print("Selling code to go on line 613")
+      print("Your Jokers:")
+      for option in pljokers:
+        print(option)
+      response = input("Which Joker would you like to sell").title()
+      try: 
+        pljokers.remove(response)
+        money += 2
+        print("You have $" + money)
+      except:
+        print(response, "is not one of your jokers. Try Again.")
     else:
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
 
@@ -765,6 +778,7 @@ def shop(deck, money, pljokers, handvalues):
 
 
 #TESTING
-#round, money = dealer(decks["standard"], decks["standard"], basedealers[table], ["Lifeguard"], hands, discards, round, money, table)
-#shop(decks["standard"], money, [], handvalues)
-playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+
+pljokers = ["Botanist"]
+shop(decks["standard"], money, pljokers, handvalues)
+#playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
