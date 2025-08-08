@@ -293,6 +293,10 @@ def jokercheck(jokers, hand, chips, multiplier):
         if card[1] == "C":
           multiplier += 3
           print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Jimbo":
+      multiplier += 4
+      print("Chips:", chips, "Multiplier:", multiplier)
   
   return chips, multiplier
 
