@@ -363,13 +363,15 @@ def jokercheck(jokers, hand, chips, multiplier):
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Mirror":
-      for item in jokers:
-        print(item)
-      copying = True
-      while copying:
-        ans = input("Which Joker will the Mirror Reflect?")
-        if ans in jokers:
-          jokercheck([ans], hand, chips, multiplier)
+      if len(jokers) > 1:
+        for item in jokers:
+          print(item)
+        copying = True
+        while copying:
+          ans = input("Which Joker will the Mirror Reflect?")
+          if ans in jokers:
+            jokercheck([ans], hand, chips, multiplier)
+            copying = False
     
   
   return chips, multiplier
