@@ -445,6 +445,8 @@ hands, discards, round, money, table):
       hands = 1
   else:
     print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
+
+  boss = effect[0]
     
   random.shuffle(pldeck)
   random.shuffle(ddeck)
