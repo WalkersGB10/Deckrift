@@ -381,11 +381,20 @@ hands, discards, round, money, table):
   global handvalues
 
   print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
-  
-  if "Wasteful" in pljokers:
-    discards += 1
-  elif "Quickdraw" in pljokers:
-    hands += 1
+
+  for joker in pljokers:
+    if joker == "Wasteful":
+      discards += 1
+    elif joker == "Quickdraw":
+      hands += 1
+    elif joker == "Backstabber":
+      if len(pljokers) > 1:
+        option = "Backstabber"
+        while option == "Backstabber":
+          option = pljokers[random.randint(0, len(pljokers))]
+        jokers.remove(option)
+        jokers_destroyed += 1
+    
   random.shuffle(pldeck)
   random.shuffle(ddeck)
   score = 0
