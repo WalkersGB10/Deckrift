@@ -410,6 +410,9 @@ def bosscheck(boss, hand, value):
       elif int(card[0]) > 6:
         countedhand.append(card)
 
+  else:
+    countedhand = hand
+
   value = countvalue(countedhand)
   return value
 
