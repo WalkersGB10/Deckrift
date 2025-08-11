@@ -431,7 +431,7 @@ hands, discards, round, money, table):
         jokers.remove(option)
         jokers_destroyed += 1
 
-  if round % 3 == 3:
+  if round % 3 == 0:
     print("-"*15, f"Table:{table} Boss Dealer", "-"*15)
     effect = bossdealers[random.randint(0, len(bossdealers))]
     bossdealers.remove(effect)
@@ -918,6 +918,7 @@ def shop(deck, money, pljokers, handvalues):
 
 #TESTING
 
-pljokers = ["Mirror", "Jimbo"]
+#pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
+round = 3
 playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
