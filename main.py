@@ -131,7 +131,7 @@ bossdealers = [
 
   ["Jack", "Disables Aces"],
 
-  ["The Void", "Disables all cards under 7"],
+  ["The Void", "Disables all cards under 5"],
 
   ["The Collector", "No Discards"],
 
@@ -503,8 +503,12 @@ hands, discards, round, money, table):
       ans = input("\nWould you like to: hit, stick, double down, or discard?")
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+        if round % 3 == 0:
+          plvalue = bosscheck(effect[0], plhand, plvalue)
       elif ans == "double down":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+        if round % 3 == 0:
+          plvalue = bosscheck(effect[0], plhand, plvalue)
         doubledown = 2
         ans = "stick"
       elif ans == "discard":
@@ -512,13 +516,18 @@ hands, discards, round, money, table):
           discards -= 1
           print("Discards remaining:", discards)
           plhand, plvalue = discard(plhand, plvalue)
+          if round % 3 == 0:
+            plvalue = bosscheck(effect[0], plhand, plvalue)
         else:
           print("0 Discards Remaining")
           continue
       elif ans != "stick":
         continue
-      
-      plvalue = countvalue(plhand)
+
+      if round % 3 == 0:
+        plvalue = bosscheck(effect[0], plhand, plvalue)
+      else:
+        plvalue = countvalue(plhand)
 
       if plvalue > 21:
         break
