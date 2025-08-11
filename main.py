@@ -580,7 +580,7 @@ hands, discards, round, money, table):
 
     if plvalue > dvalue or dvalue > 21:
       for card in plhand:
-        if round % 3 != 0
+        if round % 3 != 0:
           print("Chips:", chips, "Multiplier:", multiplier)
           if card[0] == "A":
             chips += 11
