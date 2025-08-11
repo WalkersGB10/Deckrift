@@ -379,8 +379,13 @@ def jokercheck(jokers, hand, chips, multiplier):
 def dealer(pldeck, ddeck, scoretobeat, pljokers, 
 hands, discards, round, money, table):
   global handvalues
+  global bossdealers
 
-  print("-"*15, f"Table:{table} Round:{round%3}", "-"*15)
+  if round % 3 == 3:
+    print("-"*15, f"Table:{table} Boss Dealer}", "-"*15)
+    effect = bossdealers[random.randint(0, len(bossdealers))]
+
+  print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
 
   for joker in pljokers:
     if joker == "Wasteful":
@@ -566,9 +571,7 @@ hands, discards, round, money, table):
       print("You LOSE!")
       sys.exit()
 
-def bossdealer(pldeck, ddeck, scoretobeat, pljokers, 
-hands, discards, round, money, table):
-  global handvalues
+
 
 def shoproll(type, variants):
   global jokers
