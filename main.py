@@ -120,23 +120,23 @@ crystals = [
   ["Ultimate Crystal", "Upgrades Blackjacks", 2]
 ]
 
-bossdealers = {
-  "Ruby": "Disables Diamonds",
+bossdealers = [
+  ["Ruby", "Disables Diamonds"],
 
-  "Heartless": "Disables Hearts",
+  ["Heartless", "Disables Hearts"],
 
-  "Spadebane": "Disables Spades",
+  ["Spadebane", "Disables Spades"],
 
-  "Golfer": "Disables Clubs",
+  ["Golfer", "Disables Clubs"],
 
-  "Jack": "Disables Aces",
+  ["Jack", "Disables Aces"],
 
-  "The Void": "Disables all cards under 7",
+  ["The Void", "Disables all cards under 7"],
 
-  "The Collector": "No Discards",
+  ["The Collector", "No Discards"],
 
-  "Final Reckoning": "Play only one Hand"
-  }
+  ["Final Reckoning", "Play only one Hand]"
+  ]
 
 
 
@@ -376,16 +376,47 @@ def jokercheck(jokers, hand, chips, multiplier):
   
   return chips, multiplier
 
+def bosscheck(boss, hand, value):
+  countedhand = []
+  if boss == "Ruby":
+    for card in hand:
+      if "D" not in card:
+        countedhand.append(card)
+
+  elif boss == "Heartless":
+    for card in hand:
+      if "H" not in card:
+        countedhand.append(card)
+
+  elif boss == "Spadebane":
+    for card in hand:
+      if "S" not in hand:
+        countedhand.append(card)
+
+  elif boss == "Golfer":
+    for card in hand:
+      if "C" not in card:
+        countedhand.append(card)
+
+  elif boss == "Jack":
+    for card in hand:
+      if "A" not in card:
+        countedhand.append(card)
+
+  elif boss == "The Void":
+    for card in hand:
+      if card[0] in ["A", "T", "J", "Q", "K"]:
+        countedhand.append(card)
+      elif int(card[0]) > 6:
+        countedhand.append(card)
+
+  value = countvalue(countedhand)
+  return value
+
 def dealer(pldeck, ddeck, scoretobeat, pljokers, 
 hands, discards, round, money, table):
   global handvalues
   global bossdealers
-
-  if round % 3 == 3:
-    print("-"*15, f"Table:{table} Boss Dealer}", "-"*15)
-    effect = bossdealers[random.randint(0, len(bossdealers))]
-
-  print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
 
   for joker in pljokers:
     if joker == "Wasteful":
@@ -399,6 +430,18 @@ hands, discards, round, money, table):
           option = pljokers[random.randint(0, len(pljokers))]
         jokers.remove(option)
         jokers_destroyed += 1
+
+  if round % 3 == 3:
+    print("-"*15, f"Table:{table} Boss Dealer", "-"*15)
+    effect = bossdealers[random.randint(0, len(bossdealers))]
+    bossdealers.remove(effect)
+    print("Dealer:", effect[0], "Ability:", effect[1])
+    if effect[0] == "The Collector":
+      discards = 0
+    elif effect[0] == "Final Reckoning":
+      hands = 0
+  else:
+    print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
     
   random.shuffle(pldeck)
   random.shuffle(ddeck)
@@ -408,6 +451,11 @@ hands, discards, round, money, table):
   elif round % 3 == 2:
     scoretobeat *= 1.5
   print("Target Score:", scoretobeat)
+
+  print("Hands Remaining:", hands)
+  time.sleep(1)
+  print("Discards Remaining:", discards)
+  time.sleep(1)
   
   while score < scoretobeat and hands > 0:
     ans = ""
@@ -861,6 +909,6 @@ def shop(deck, money, pljokers, handvalues):
 
 #TESTING
 
-#pljokers = ["Mirror", "Jimbo"]
+pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
 playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
