@@ -82,7 +82,7 @@ jokers = [
 
   ["Extrovert", "+3 Multiplier per Joker Owned (Extrovert Included)", 6],
 
-  ["Backstabber", "Destroys a Random Joker Each Dealer. Adds 0.5X Multiplier to This Joker", 6], ]
+  ["Backstabber", "Destroys a Random Joker Each Dealer. Adds 0.5X Multiplier to This Joker", 6],
 
   ["Introvert", "+0.5X Multiplier per Empty Joker Slot (Introvert Included)", 8],
 
