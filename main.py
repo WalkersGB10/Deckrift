@@ -301,6 +301,13 @@ def discard(hand, value):
   return hand, value
 
 def jokercheck(jokers, hand, chips, multiplier):
+  global busts
+  global blackjacks
+  global jokers_destroyed
+  global fates_used
+  global crystals_used
+  global packs_opened
+  
   for joker in jokers:
     if joker == "Jeweler":
       for card in hand:
@@ -329,6 +336,41 @@ def jokercheck(jokers, hand, chips, multiplier):
     elif joker == "Jimbo":
       multiplier += 4
       print("Chips:", chips, "Multiplier:", multiplier)
+      
+    elif joker == "All Or Nothing":
+      muliplier += busts
+      print("Chips:", chips, "Multiplier:", multiplier)
+      
+    elif joker == "Fortune Teller":
+      multiplier += fates_used
+      print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Broker":
+      multiplier += crystals_used
+      print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Extrovert":
+      for item in jokers:
+        multiplier += 3
+        print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Introvert":
+      multiplier *= 1 + ((6-len(jokers)) * 0.5)
+      print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Backstabber":
+      multiplier *= 1 + (jokers_destroyed * 0.5)
+      print("Chips:", chips, "Multiplier:", multiplier)
+
+    elif joker == "Mirror":
+      for item in jokers:
+        print(item)
+      copying = True
+      while copying:
+        ans = input("Which Joker will the Mirror Reflect?")
+        if ans in jokers:
+          jokercheck([ans], hand, chips, multiplier)
+    
   
   return chips, multiplier
 
