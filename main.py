@@ -861,6 +861,6 @@ def shop(deck, money, pljokers, handvalues):
 
 #TESTING
 
-pljokers = ["Mirror", "Jimbo"]
+#pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
 playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
