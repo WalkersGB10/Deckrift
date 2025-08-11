@@ -439,7 +439,7 @@ hands, discards, round, money, table):
     if effect[0] == "The Collector":
       discards = 0
     elif effect[0] == "Final Reckoning":
-      hands = 0
+      hands = 1
   else:
     print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
     
