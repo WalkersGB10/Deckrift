@@ -433,7 +433,7 @@ hands, discards, round, money, table):
 
   if round % 3 == 0:
     print("-"*15, f"Table:{table} Boss Dealer", "-"*15)
-    effect = bossdealers[random.randint(0, len(bossdealers))]
+    effect = bossdealers[random.randint(0, len(bossdealers)-1)]
     bossdealers.remove(effect)
     print("Dealer:", effect[0], "Ability:", effect[1])
     if effect[0] == "The Collector":
@@ -489,7 +489,10 @@ hands, discards, round, money, table):
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
         print("\nYou had less than two cards so were forced to draw")
 
-      plvalue = countvalue(plhand)
+      if round % 3 == 0:
+        plvalue = bosscheck(effect[0], plhand, plvalue)
+      else:
+        plvalue = countvalue(plhand)
 
       print("\nYour cards:")
       for card in plhand:
