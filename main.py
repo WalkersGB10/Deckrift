@@ -131,7 +131,7 @@ bossdealers = [
 
   ["Jack", "Disables Aces"],
 
-  ["The Void", "Disables all cards under 5"],
+  ["The Void", "Disables all cards under 7"],
 
   ["The Collector", "No Discards"],
 
