@@ -364,13 +364,13 @@ def jokercheck(jokers, hand, chips, multiplier):
 
     elif joker == "Mirror":
       if len(jokers) > 1:
-        for item in jokers:
+        for item in jokers[1:]:
           print(item)
         copying = True
         while copying:
           ans = input("Which Joker will the Mirror Reflect?")
           if ans in jokers:
-            jokercheck([ans], hand, chips, multiplier)
+            chips, multiplier = jokercheck([ans], hand, chips, multiplier)
             copying = False
     
   
@@ -849,6 +849,6 @@ def shop(deck, money, pljokers, handvalues):
 
 #TESTING
 
-pljokers = ["Botanist"]
-shop(decks["standard"], money, pljokers, handvalues)
-#playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+pljokers = ["Mirror", "Jimbo"]
+#shop(decks["standard"], money, pljokers, handvalues)
+playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
