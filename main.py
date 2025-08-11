@@ -135,7 +135,7 @@ bossdealers = [
 
   ["The Collector", "No Discards"],
 
-  ["Final Reckoning", "Play only one Hand]"
+  ["Final Reckoning", "Play only one Hand"]
   ]
 
 
