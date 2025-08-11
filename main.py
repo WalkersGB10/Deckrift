@@ -7,6 +7,12 @@ discards = 3
 table = 0
 round = 1
 money = 5
+busts = 0
+blackjacks = 0
+packs_opened = 0
+crystals_used = 0
+fates_used = 0
+destroyed_jokers = 0
 pljokers = []
 basedealers = [100, 300, 600, 1000, 2400, 6000, 12000, 25000, 50000]
 handvalues = {
@@ -66,15 +72,29 @@ jokers = [
   
   ["Botanist", "+3 Multiplier per Club Played", 3],
 
+  ["Jimbo", "+4 Multiplier", 4],
+
+  ["All Or Nothing", "+1 Multiplier per Bust This Run", 5],
+
+  ["Fortune Teller", "+1 Multiplier per Fate Used This Run", 4],
+
+  ["Broker", "+1 Multiplier per Crystal Used This Run", 4],
+
+  ["Extrovert", "+3 Multiplier per Joker Owned (Extrovert Included)", 6],
+
+  ["Backstabber", "Destroys a Random Joker Each Dealer. Adds 0.5X Multiplier to This Joker", 6], ]
+
+  ["Introvert", "+0.5X Multiplier per Empty Joker Slot (Introvert Included)", 8],
+
+  ["Mirror", "Copies Ability of Selected Joker", 6],
+  
   ["Lifeguard", "Survive if you get 50% required score. Self Destructs on Use", 6],
 
   ["Wasteful", "+1 Discard per Dealer", 4],
 
   ["Quickdraw", "+1 Hand per Dealer", 4],
 
-  ["Phantom Joker", "Allows You to See Both of the Dealer's Starting Hand", 4],
-
-  ["Jimbo", "+4 Multiplier", 4]
+  ["Phantom Joker", "Allows You to See Both of the Dealer's Starting Hand", 4]
   
 ]
 
@@ -139,6 +159,9 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
 
 def usefate(fate, deck, money, pljokers):
   global jokers
+  global fates_used
+  fates_used += 1
+  
   fate = fate[0]
   if fate == "The Gambler":
     chance = random.randint(0, 3)
@@ -169,6 +192,9 @@ def usefate(fate, deck, money, pljokers):
   return deck, money, pljokers
 
 def usecrystal(crystal, handvalues):
+  global crystals_used
+  crystals_used += 1
+  
   crystal = crystal[0]
   if crystal == "Weak Crystal":
     for index in range(4, 9):
