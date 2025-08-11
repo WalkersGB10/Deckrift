@@ -580,14 +580,73 @@ hands, discards, round, money, table):
 
     if plvalue > dvalue or dvalue > 21:
       for card in plhand:
-        print("Chips:", chips, "Multiplier:", multiplier)
-        if card[0] == "A":
-          chips += 11
-        elif card[0] in ["T", "J", "Q", "K"]:
-          chips += 10
+        if round % 3 != 0
+          print("Chips:", chips, "Multiplier:", multiplier)
+          if card[0] == "A":
+            chips += 11
+          elif card[0] in ["T", "J", "Q", "K"]:
+            chips += 10
+          else:
+            chips += int(card[0])
+          time.sleep(1)
         else:
-          chips += int(card[0])
-        time.sleep(1)
+          if boss == "Jack":
+            print("Chips:", chips, "Multiplier:", multiplier)
+            if card[0] == "A":
+              chips += 0
+            elif card[0] in ["T", "J", "Q", "K"]:
+              chips += 10
+            else:
+              chips += int(card[0])
+            time.sleep(1)
+          elif boss == "The Void":
+            if card[0] == "A":
+              chips += 11
+            elif card[0] in ["T", "J", "Q", "K"]:
+              chips += 10
+            elif int(card[0]) > 6:
+              chips += int(card[0])
+            time.sleep(1)
+          elif boss == "Ruby":
+              print("Chips:", chips, "Multiplier:", multiplier)
+              if "D" not in card:
+                if card[0] == "A":
+                  chips += 11
+                elif card[0] in ["T", "J", "Q", "K"]:
+                  chips += 10
+                else:
+                  chips += int(card[0])
+                time.sleep(1)
+          elif boss == "Heartless":
+            print("Chips:", chips, "Multiplier:", multiplier)
+            if "H" not in card:
+              if card[0] == "A":
+                chips += 11
+              elif card[0] in ["T", "J", "Q", "K"]:
+                chips += 10
+              else:
+                chips += int(card[0])
+              time.sleep(1)
+          elif boss == "Spadebane":
+            print("Chips:", chips, "Multiplier:", multiplier)
+            if "S" not in card:
+              if card[0] == "A":
+                chips += 11
+              elif card[0] in ["T", "J", "Q", "K"]:
+                chips += 10
+              else:
+                chips += int(card[0])
+              time.sleep(1)
+          elif boss == "Golfer":
+            print("Chips:", chips, "Multiplier:", multiplier)
+            if "C" not in card:
+              if card[0] == "A":
+                chips += 11
+              elif card[0] in ["T", "J", "Q", "K"]:
+                chips += 10
+              else:
+                chips += int(card[0])
+              time.sleep(1)
 
     chips, multiplier = jokercheck(pljokers, plhand, chips, multiplier)
 
