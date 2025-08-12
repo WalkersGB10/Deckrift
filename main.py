@@ -796,11 +796,12 @@ hands, discards, round, money, table):
       money += 5
     money += hands
     round += 1
-    print("Round Earnings: $" + str(earning))
+    print("Round Earnings:", "$"*earning)
     time.sleep(0.5)
-    print("Interest: $" + str(interest))
+    print("Interest:", "$"*interest)
     time.sleep(0.5)
-    input("Press ENTER to Cash Out $" + str(earning + interest))
+    print("Hands Remaining:", "$"*hands)
+    input("Press ENTER to Cash Out $" + str(earning + interest + hands))
     return round, money
   else:
     if "Lifeguard" in pljokers and score*2 >= scoretobeat:
