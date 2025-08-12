@@ -1113,6 +1113,8 @@ def shop(deck, money, pljokers, handvalues):
                   print("You have $" + str(money))
                   time.sleep(0.5)
                   continue
+        except:
+          print(end="")
         try:
           if ans in packs[index]:
             ans = packs[index]
@@ -1132,6 +1134,8 @@ def shop(deck, money, pljokers, handvalues):
               print("You have $" + str(money))
               time.sleep(0.5)
               continue
+        except:
+          print(end="")
             
                 
   
