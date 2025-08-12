@@ -778,12 +778,13 @@ hands, discards, round, money, table):
     print("Discards Remaining:", discards, "\n\n")
     time.sleep(1)
 
-  if score >= scoretobeat:
-    if money > 24:
+  if money > 24:
       interest = 5
     else:
-      interest = money //5
-    money += interest
+      interest = money // 5
+  money += interest
+
+  if score >= scoretobeat:
     
     print("You WIN!")
     time.sleep(0.5)
@@ -799,12 +800,17 @@ hands, discards, round, money, table):
     time.sleep(0.5)
     print("Interest: $" + str(interest))
     time.sleep(0.5)
+    input("Press ENTER to Cash Out $" + str(earnings + interest))
     return round, money
   else:
     if "Lifeguard" in pljokers and score*2 >= scoretobeat:
       pljokers.remove("Lifeguard")
       print("Saved by lifeguard")
+      time.sleep(0.5)
       round += 1
+      print("Interest: $" + str(interest))
+      time.sleep(0.5)
+      input("Press ENTER to Cash Out $" + str(interest))
       return round, money
     else:
       print("You LOSE!")
