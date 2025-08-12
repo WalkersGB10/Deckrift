@@ -856,6 +856,7 @@ def shoproll(type, variants):
     return items, variants
 
 def displayshop(singles, svariants, packs, pvariants, price):
+  print("You have $" + str(money)) 
   time.sleep(0.5)
   print("$"+str(price), "Reroll\n")
   time.sleep(0.5)
