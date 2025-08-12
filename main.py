@@ -1057,49 +1057,15 @@ def shop(deck, money, pljokers, handvalues):
         time.sleep(0.5)
         continue
       else:
-        if ans in singles[index]:
-          ans = singles[index]
-          if ans in fates:
-            if money >= ans[2]:
-              svariants.pop(singles.index(ans))
-              singles.remove(ans)
-              money -= ans[2]
-              deck, money, pljokers = usefate(ans, deck, money, pljokers)
-              time.sleep(0.5)
-              print("You have $" + str(money))
-              time.sleep(0.5)
-              continue
-            else:
-              time.sleep(0.5)
-              print("You don't have enough money for this")
-              time.sleep(0.5)
-              print("You have $" + str(money))
-              time.sleep(0.5)
-              continue
-          elif ans in crystals:
-            if money >= ans[2]:
-              svariants.pop(singles.index(ans))
-              singles.remove(ans)
-              money -= ans[2]
-              handvalues = usecrystal(ans, handvalues)
-              time.sleep(0.5)
-              print("You have $" + str(money))
-              time.sleep(0.5)
-              continue
-            else:
-              time.sleep(0.5)
-              print("You don't have enough money for this")
-              time.sleep(0.5)
-              print("You have $" + str(money))
-              time.sleep(0.5)
-              continue
-          else:
-            if len(pljokers) < 5:
+        try:
+          if ans in singles[index]:
+            ans = singles[index]
+            if ans in fates:
               if money >= ans[2]:
                 svariants.pop(singles.index(ans))
                 singles.remove(ans)
                 money -= ans[2]
-                pljokers.append(ans[0])
+                deck, money, pljokers = usefate(ans, deck, money, pljokers)
                 time.sleep(0.5)
                 print("You have $" + str(money))
                 time.sleep(0.5)
@@ -1111,24 +1077,60 @@ def shop(deck, money, pljokers, handvalues):
                 print("You have $" + str(money))
                 time.sleep(0.5)
                 continue
-        elif ans in packs[index]:
-          ans = packs[index]
-          if money >= ans[2]:
-            pvariants.pop(packs.index(ans))
-            packs.remove(ans)
-            money -= ans[2]
-            money = openpack(ans, money)
-            time.sleep(0.5)
-            print("You have $" + str(money))
-            time.sleep(0.5)
-            continue
-          else:
-            time.sleep(0.5)
-            print("You don't have enough money for this")
-            time.sleep(0.5)
-            print("You have $" + str(money))
-            time.sleep(0.5)
-            continue
+            elif ans in crystals:
+              if money >= ans[2]:
+                svariants.pop(singles.index(ans))
+                singles.remove(ans)
+                money -= ans[2]
+                handvalues = usecrystal(ans, handvalues)
+                time.sleep(0.5)
+                print("You have $" + str(money))
+                time.sleep(0.5)
+                continue
+              else:
+                time.sleep(0.5)
+                print("You don't have enough money for this")
+                time.sleep(0.5)
+                print("You have $" + str(money))
+                time.sleep(0.5)
+                continue
+            else:
+              if len(pljokers) < 5:
+                if money >= ans[2]:
+                  svariants.pop(singles.index(ans))
+                  singles.remove(ans)
+                  money -= ans[2]
+                  pljokers.append(ans[0])
+                  time.sleep(0.5)
+                  print("You have $" + str(money))
+                  time.sleep(0.5)
+                  continue
+                else:
+                  time.sleep(0.5)
+                  print("You don't have enough money for this")
+                  time.sleep(0.5)
+                  print("You have $" + str(money))
+                  time.sleep(0.5)
+                  continue
+        try:
+          if ans in packs[index]:
+            ans = packs[index]
+            if money >= ans[2]:
+              pvariants.pop(packs.index(ans))
+              packs.remove(ans)
+              money -= ans[2]
+              money = openpack(ans, money)
+              time.sleep(0.5)
+              print("You have $" + str(money))
+              time.sleep(0.5)
+              continue
+            else:
+              time.sleep(0.5)
+              print("You don't have enough money for this")
+              time.sleep(0.5)
+              print("You have $" + str(money))
+              time.sleep(0.5)
+              continue
             
                 
   
