@@ -156,9 +156,47 @@ def playdeckrift(decks, basedealers, table, base_hands, base_discards, round, mo
     if table == 9:
       time.sleep(1)
       print("You Beat My Game!\nThank You For Playing!")
+      stats()
       sys.exit()
     round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, base_hands, base_discards, round, money, table)
     deck, money, pljokers, handvalues = shop(deck, money, pljokers, handvalues)
+
+def stats():
+  global table
+  global round
+  global money
+  global busts
+  global blackjacks
+  global packs_opened
+  global crystals_used
+  global fates_used
+  global destroyed_jokers
+  global pljokers
+
+  print("-"*15, "Run Stats", "-"*15)
+  time.sleep(1)
+  print("Table:", table)
+  time.sleep(0.5)
+  print("Round:", round)
+  time.sleep(0.5)
+  print("Final Money:", money)
+  time.sleep(0.5)
+  print("Times Gone Bust:", busts)
+  time.sleep(0.5)
+  print("Blackjacks Scored:", blackjacks)
+  time.sleep(0.5)
+  print("Packs Opened:", packs_opened)
+  time.sleep(0.5)
+  print("Crystals Used:", crystals_used)
+  time.sleep(0.5)
+  print("Fates Used:", fates_used)
+  time.sleep(0.5)
+  print("Jokers Destroyed:", destroyed_jokers)
+  time.sleep(2)
+  print("Your Final Jokers:")
+  for i in pljokers:
+    time.sleep(0.5)
+    print(i)
 
 def usefate(fate, deck, money, pljokers):
   global jokers
@@ -765,6 +803,7 @@ hands, discards, round, money, table):
       return round, money
     else:
       print("You LOSE!")
+      stats()
       sys.exit()
 
 
