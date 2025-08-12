@@ -429,7 +429,7 @@ def bosscheck(boss, hand, value):
 
   elif boss == "Spadebane":
     for card in hand:
-      if "S" not in hand:
+      if "S" not in card:
         countedhand.append(card)
 
   elif boss == "Golfer":
@@ -439,7 +439,7 @@ def bosscheck(boss, hand, value):
 
   elif boss == "Jack":
     for card in hand:
-      if "A" not in card:
+      if card[0] != "A":
         countedhand.append(card)
 
   elif boss == "The Void":
