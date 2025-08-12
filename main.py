@@ -443,10 +443,9 @@ hands, discards, round, money, table):
       discards = 0
     elif effect[0] == "Final Reckoning":
       hands = 1
+    boss = effect[0]
   else:
     print("-"*15, f"Table:{table} Dealer:{round%3}", "-"*15)
-
-  boss = effect[0]
     
   random.shuffle(pldeck)
   random.shuffle(ddeck)
@@ -997,5 +996,4 @@ def shop(deck, money, pljokers, handvalues):
 
 #pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
-round = 3
 playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
