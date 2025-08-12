@@ -82,6 +82,8 @@ jokers = [
 
   ["Extrovert", "+3 Multiplier per Joker Owned (Extrovert Included)", 6],
 
+  ["Professional", "+1 Multiplier per Blackjack Scored this Run", 4],
+
   ["Backstabber", "Destroys a Random Joker Each Dealer. Adds 0.5X Multiplier to This Joker", 6],
 
   ["Introvert", "+0.5X Multiplier per Empty Joker Slot (Introvert Included)", 8],
@@ -370,6 +372,11 @@ def jokercheck(jokers, hand, chips, multiplier):
         time.sleep(0.5)
         print("Chips:", chips, "Multiplier:", multiplier)
 
+    elif joker == "Professional":
+      multiplier += blackjacks
+      time.sleep(0.5)
+      print("Chips:", chips, "Multiplier:", multiplier)
+
     elif joker == "Introvert":
       multiplier *= 1 + ((6-len(jokers)) * 0.5)
       time.sleep(0.5)
@@ -390,7 +397,6 @@ def jokercheck(jokers, hand, chips, multiplier):
           if ans in jokers:
             chips, multiplier = jokercheck([ans], hand, chips, multiplier)
             copying = False
-    
   
   return chips, multiplier
 
