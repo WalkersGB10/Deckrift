@@ -2,8 +2,8 @@ import random
 import time
 import sys
 
-hands = 5
-discards = 3
+base_hands = 5
+base_discards = 3
 table = 0
 round = 1
 money = 5
@@ -144,7 +144,7 @@ bossdealers = [
 
 
 
-def playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers):
+def playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers):
   global pljokers
   deck = choosedeck(decks)
   while True:
@@ -157,7 +157,7 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
       time.sleep(1)
       print("You Beat My Game!\nThank You For Playing!")
       sys.exit()
-    round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, hands, discards, round, money, table)
+    round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, base_hands, base_discards, round, money, table)
     deck, money, pljokers, handvalues = shop(deck, money, pljokers, handvalues)
 
 def usefate(fate, deck, money, pljokers):
@@ -459,8 +459,9 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers,
 hands, discards, round, money, table):
   global handvalues
   global bossdealers
-  global blackjack
+  global blackjacks
   global busts
+  global destroyed_jokers
 
   for joker in pljokers:
     if joker == "Wasteful":
@@ -469,9 +470,9 @@ hands, discards, round, money, table):
       hands += 1
     elif joker == "Backstabber":
       if len(pljokers) > 1:
-        option = "Backstabber"
-        while option == "Backstabber":
-          option = pljokers[random.randint(0, len(pljokers)-1)]
+        options = [joker for joker in pljokers if joker != "Backstabber"]
+        option = options[random.randint(0, len(options)-1)]
+        print(option, "Destroyed")
         pljokers.remove(option)
         destroyed_jokers += 1
 
@@ -747,7 +748,7 @@ hands, discards, round, money, table):
     money += interest
     
     print("You WIN!")
-    sleep(0.5)
+    time.sleep(0.5)
     print("Interest:", interest)
     if round % 3 == 1:
       money += 3
@@ -1098,4 +1099,4 @@ def shop(deck, money, pljokers, handvalues):
 
 #pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
-playdeckrift(decks, basedealers, table, hands, discards, round, money, handvalues, jokers) 
+playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers) 
