@@ -725,7 +725,15 @@ hands, discards, round, money, table):
     time.sleep(1)
 
   if score >= scoretobeat:
+    if money > 24:
+      interest = 5
+    else:
+      interest = money //5
+    money += interest
+    
     print("You WIN!")
+    sleep(0.5)
+    print("Interest:", interest)
     if round % 3 == 1:
       money += 3
     else:
