@@ -995,7 +995,6 @@ def shop(deck, money, pljokers, handvalues):
 
   print("-"*15, "Welcome to the Shop", "-"*15)
   time.sleep(0.5)
-  print("You have $" + str(money))
   print()
   time.sleep(0.5)
   singles = []
