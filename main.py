@@ -152,6 +152,7 @@ def playdeckrift(decks, basedealers, table, hands, discards, round, money, handv
     if round % 3 == 1:
       table += 1
     if table == 9:
+      time.sleep(1)
       print("You Beat My Game!\nThank You For Playing!")
       sys.exit()
     round, money = dealer(pldeck, decks["standard"], basedealers[table], pljokers, hands, discards, round, money, table)
@@ -167,18 +168,22 @@ def usefate(fate, deck, money, pljokers):
     chance = random.randint(0, 3)
     if chance == 3:
       if len(pljokers) < 5:
+        time.sleep(1)
         print("You received a joker")
         index = random.randint(0, len(jokers)-1)
         pljokers.append(jokers[index][0])
         jokers.pop(index)
       else:
+        time.sleep(1)
         print("No Space")
     else:
+      time.sleep(1)
       print("NOPE")
 
   elif fate == "The Twist":
     chance = random.randint(5, 10)
     money += chance
+    time.sleep(1)
     print("You gained $" + str(chance))
 
   elif fate == "The Reckoning":
@@ -186,6 +191,7 @@ def usefate(fate, deck, money, pljokers):
     if len(pljokers) > 0:
       pljokers.pop(index)
     money += 20
+    time.sleep(1)
     print("You gained $20")
 
 
@@ -231,6 +237,7 @@ def choosedeck(decks):
       deck = input("Which deck would you like?").lower()
       return decks[deck]
     except:
+      time.sleep(1)
       print("Deck not Found")
 
 def countvalue(plhand):
@@ -313,53 +320,64 @@ def jokercheck(jokers, hand, chips, multiplier):
       for card in hand:
         if card[1] == "D":
           multiplier += 3
+          time.sleep(0.5)
           print("Chips:", chips, "Multiplier:", multiplier)
     
     elif joker == "Miner":
       for card in hand:
         if card[1] == "S":
           multiplier += 3
+          time.sleep(0.5)
           print("Chips:", chips, "Multiplier:", multiplier)
     
     elif joker == "Lover":
       for card in hand:
         if card[1] == "H":
           multiplier += 3
+          time.sleep(0.5)
           print("Chips:", chips, "Multiplier:", multiplier)
     
     elif joker == "Botanist":
       for card in hand:
         if card[1] == "C":
           multiplier += 3
+          time.sleep(0.5)
           print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Jimbo":
       multiplier += 4
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
       
     elif joker == "All Or Nothing":
       muliplier += busts
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
       
     elif joker == "Fortune Teller":
       multiplier += fates_used
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Broker":
       multiplier += crystals_used
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Extrovert":
       for item in jokers:
         multiplier += 3
+        time.sleep(0.5)
         print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Introvert":
       multiplier *= 1 + ((6-len(jokers)) * 0.5)
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Backstabber":
       multiplier *= 1 + (jokers_destroyed * 0.5)
+      time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Mirror":
@@ -368,7 +386,7 @@ def jokercheck(jokers, hand, chips, multiplier):
           print(item)
         copying = True
         while copying:
-          ans = input("Which Joker will the Mirror Reflect?")
+          ans = input("Which Joker will the Mirror Reflect?").title()
           if ans in jokers:
             chips, multiplier = jokercheck([ans], hand, chips, multiplier)
             copying = False
@@ -420,6 +438,8 @@ def dealer(pldeck, ddeck, scoretobeat, pljokers,
 hands, discards, round, money, table):
   global handvalues
   global bossdealers
+  global blackjack
+  global busts
 
   for joker in pljokers:
     if joker == "Wasteful":
@@ -438,6 +458,7 @@ hands, discards, round, money, table):
     print("-"*15, f"Table:{table} Boss Dealer", "-"*15)
     effect = bossdealers[random.randint(0, len(bossdealers)-1)]
     bossdealers.remove(effect)
+    time.sleep(1)
     print("Dealer:", effect[0], "Ability:", effect[1])
     if effect[0] == "The Collector":
       discards = 0
@@ -454,8 +475,10 @@ hands, discards, round, money, table):
     scoretobeat *= 2
   elif round % 3 == 2:
     scoretobeat *= 1.5
+  time.sleep(1)
   print("Target Score:", scoretobeat)
 
+  time.sleep(1)
   print("Hands Remaining:", hands)
   time.sleep(1)
   print("Discards Remaining:", discards)
@@ -491,6 +514,7 @@ hands, discards, round, money, table):
 
       while len(plhand) < 2:
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
+        time.sleep(1)
         print("\nYou had less than two cards so were forced to draw")
 
       if round % 3 == 0:
@@ -498,6 +522,7 @@ hands, discards, round, money, table):
       else:
         plvalue = countvalue(plhand)
 
+      time.sleep(1)
       print("\nYour cards:")
       for card in plhand:
         print(card, end = " ")
@@ -507,7 +532,7 @@ hands, discards, round, money, table):
         ans = "stick"
         continue
 
-      ans = input("\nWould you like to: hit, stick, double down, or discard?")
+      ans = input("\nWould you like to: hit, stick, double down, or discard?").lower()
       if ans == "hit":
         pldeck, plhand, plvalue = drawcard(pldeck, plhand, plvalue)
         if round % 3 == 0:
@@ -521,11 +546,13 @@ hands, discards, round, money, table):
       elif ans == "discard":
         if discards > 0:
           discards -= 1
+          time.sleep(1)
           print("Discards remaining:", discards)
           plhand, plvalue = discard(plhand, plvalue)
           if round % 3 == 0:
             plvalue = bosscheck(effect[0], plhand, plvalue)
         else:
+          time.sleep(1)
           print("0 Discards Remaining")
           continue
       elif ans != "stick":
@@ -538,7 +565,8 @@ hands, discards, round, money, table):
 
       if plvalue > 21:
         break
-
+        
+    time.sleep(1)
     print("Your cards:")
     for card in plhand:
       print(card, end = " ")
@@ -549,6 +577,7 @@ hands, discards, round, money, table):
     if plvalue > 21:
       time.sleep(1)
       print("You Went Bust!")
+      busts += 1
 
     time.sleep(1)
     print("\nDealer cards:")
@@ -579,6 +608,7 @@ hands, discards, round, money, table):
     
     if plvalue == 21 and len(plhand) == 2:
       chips, multiplier = handvalues["bj"][0], handvalues["bj"][1]
+      blackjacks += 1
     else:
       chips, multiplier = handvalues[plvalue][0], handvalues[plvalue][1]   
 
@@ -667,12 +697,15 @@ hands, discards, round, money, table):
     handscore = chips * multiplier * doubledown
 
     if dvalue > 21:
+      time.sleep(1)
       print(chips, "*", multiplier, "*", doubledown, "=", handscore)
       score += handscore
     elif dvalue == plvalue:
+      time.sleep(1)
       print(chips, "*", multiplier//2, "*", doubledown, "=", handscore//2)
       score += handscore // 2
     elif plvalue > dvalue:
+      time.sleep(1)
       print(chips, "*", multiplier, "*", doubledown, "=", handscore)
       score += handscore
   
@@ -754,24 +787,28 @@ def shoproll(type, variants):
     return items, variants
 
 def displayshop(singles, svariants, packs, pvariants, price):
+  time.sleep(0.5)
   print("$"+str(price), "Reroll\n")
+  time.sleep(0.5)
   print("Loose Items:")
   time.sleep(1)
 
   for card in singles:
     print("$"+str(card[2]), card[0], "("+svariants[singles.index(card)]+")")
+    time.sleep(0.5)
 
-  time.sleep(1)
   print("\nPacks:")
   time.sleep(1)
 
   for pack in packs:
     print("$"+str(pack[2]), pack[0])
+    time.sleep(0.5)
 
 def browse(item, singles, svariants, packs, pvariants, money):
   for card in singles:
     if item in card:
       print("$"+str(card[2]), card[0]+":", card[1])
+      time.sleep(0.5)
       ans = input("Would you like to purchase " + card[0]+"?").lower()[0]
       if ans == "y":
         return True, singles.index(card)
@@ -782,6 +819,7 @@ def browse(item, singles, svariants, packs, pvariants, money):
   for option in packs:
     if item in option:
       print("$"+str(option[2]), option[0]+":", option[1])
+      time.sleep(0.5)
       ans = input("Would you like to purchase " + option[0]+"?").lower()[0]
       if ans == "y":
         return True, packs.index(option)
@@ -817,14 +855,14 @@ def openpack(pack, money):
     while choices > 0:
       for option in options:
         print(option[0] + ":", option[1])
-      ans = input("Type the name of the fate you would like or 'Skip' if you wouldn't like any of them")
+        time.sleep(0.5)
+      ans = input("Type the name of the fate you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
         return
       for option in options:
         if ans in option:
-          print(money)
           deck, money, pljokers = usefate(option, deck, money, pljokers)
-          print(money)
+          time.sleep(0.5)
           options.remove(option)
           choices -= 1
           break
@@ -838,9 +876,11 @@ def openpack(pack, money):
     while choices > 0:
       for option in options:
         print(option[0] + ":", option[1])
+        time.sleep(0.5)
         
       print("You have", choices, "choices remaining")
-      ans = input("Type the name of the crystal you would like or 'Skip' if you wouldn't like any of them")
+      time.sleep(0.5)
+      ans = input("Type the name of the crystal you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
         return
       for option in options:
@@ -859,9 +899,11 @@ def openpack(pack, money):
     while choices > 0:
       for option in options:
         print(option[0] + ":", option[1])
+        time.sleep(0.5)
         
       print("You have", choices, "choices remaining")
-      ans = input("Type the name of the joker you would like or 'Skip' if you wouldn't like any of them")
+      time.sleep(0.5)
+      ans = input("Type the name of the joker you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
         return
       for option in options:
@@ -882,8 +924,10 @@ def shop(deck, money, pljokers, handvalues):
   price = 5
 
   print("-"*15, "Welcome to the Shop", "-"*15)
+  time.sleep(0.5)
   print("You have $" + str(money))
   print()
+  time.sleep(0.5)
   singles = []
   svariants = []
 
@@ -911,28 +955,37 @@ def shop(deck, money, pljokers, handvalues):
         money-=price
         price+=1
         print("\nShop Rerolled\n")
+        time.sleep(0.5)
         singles, svariants = shoproll("single", svariants)
       print("You have $" + str(money))
+      time.sleep(0.5)
       continue
     elif ans == "Continue":
+      time.sleep(0.5)
       print("Next Dealer")
       return deck, money, pljokers, handvalues
     elif ans == "Sell":
+      time.sleep(0.5)
       print("Your Jokers:")
       for option in pljokers:
         print(option)
+      time.sleep(0.5)
       response = input("Which Joker would you like to sell").title()
       try: 
         pljokers.remove(response)
         money += 2
         print("You have $" + money)
+        time.sleep(0.5)
       except:
         print(response, "is not one of your jokers. Try Again.")
+        time.sleep(0.5)
     else:
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
 
       if buy == False:
+        time.sleep(0.5)
         print("You have $" + str(money))
+        time.sleep(0.5)
         continue
       else:
         if ans in singles[index]:
@@ -943,11 +996,16 @@ def shop(deck, money, pljokers, handvalues):
               singles.remove(ans)
               money -= ans[2]
               deck, money, pljokers = usefate(ans, deck, money, pljokers)
+              time.sleep(0.5)
               print("You have $" + str(money))
+              time.sleep(0.5)
               continue
             else:
+              time.sleep(0.5)
               print("You don't have enough money for this")
+              time.sleep(0.5)
               print("You have $" + str(money))
+              time.sleep(0.5)
               continue
           elif ans in crystals:
             if money >= ans[2]:
@@ -955,11 +1013,16 @@ def shop(deck, money, pljokers, handvalues):
               singles.remove(ans)
               money -= ans[2]
               handvalues = usecrystal(ans, handvalues)
+              time.sleep(0.5)
               print("You have $" + str(money))
+              time.sleep(0.5)
               continue
             else:
+              time.sleep(0.5)
               print("You don't have enough money for this")
+              time.sleep(0.5)
               print("You have $" + str(money))
+              time.sleep(0.5)
               continue
           else:
             if len(pljokers) < 5:
@@ -968,11 +1031,16 @@ def shop(deck, money, pljokers, handvalues):
                 singles.remove(ans)
                 money -= ans[2]
                 pljokers.append(ans[0])
+                time.sleep(0.5)
                 print("You have $" + str(money))
+                time.sleep(0.5)
                 continue
               else:
+                time.sleep(0.5)
                 print("You don't have enough money for this")
+                time.sleep(0.5)
                 print("You have $" + str(money))
+                time.sleep(0.5)
                 continue
         elif ans in packs[index]:
           ans = packs[index]
@@ -981,11 +1049,16 @@ def shop(deck, money, pljokers, handvalues):
             packs.remove(ans)
             money -= ans[2]
             money = openpack(ans, money)
+            time.sleep(0.5)
             print("You have $" + str(money))
+            time.sleep(0.5)
             continue
           else:
+            time.sleep(0.5)
             print("You don't have enough money for this")
+            time.sleep(0.5)
             print("You have $" + str(money))
+            time.sleep(0.5)
             continue
             
                 
