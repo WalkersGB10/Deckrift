@@ -246,6 +246,20 @@ def countvalue(plhand):
   value = 0
 
   for card in plhand:
+    if card[0] in ["T", "J", "Q", "K"]:
+      value += 10
+    elif card[0] == "A":
+      value += 1
+    else:
+      value += int(card[0])
+
+  for card in plhand:
+    if card[0] == "A":
+      if value < 12:
+        value += 10
+
+  '''
+  for card in plhand:
     if card[0] == "A":
       plhand.append(card)
       plhand.remove(card)
@@ -260,6 +274,7 @@ def countvalue(plhand):
         value += 1
     else:
       value += int(card[0])
+  '''
   return value
 
 def drawcard(deck, hand, value):
