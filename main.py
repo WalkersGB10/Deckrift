@@ -787,13 +787,18 @@ hands, discards, round, money, table):
     
     print("You WIN!")
     time.sleep(0.5)
-    print("Interest:", interest)
     if round % 3 == 1:
+      earning = 3
       money += 3
     else:
+      earning = 5
       money += 5
     money += hands
     round += 1
+    print("Round Earnings: $" + str(earning))
+    time.sleep(0.5)
+    print("Interest: $" + str(interest))
+    time.sleep(0.5)
     return round, money
   else:
     if "Lifeguard" in pljokers and score*2 >= scoretobeat:
@@ -1014,7 +1019,7 @@ def shop(deck, money, pljokers, handvalues):
     ans = input('''
     If you would like to:
     Reroll Loose Items: Type 'Reroll'
-    Check the Description of a Loose Item: Type the Name of that Item
+    Check the Description of an Item: Type the Name of that Item
     Sell a joker: Type 'Sell'
     Progress onto the Next Dealer: Type 'Continue\'
     ''').title()
