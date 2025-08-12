@@ -800,7 +800,7 @@ hands, discards, round, money, table):
     time.sleep(0.5)
     print("Interest: $" + str(interest))
     time.sleep(0.5)
-    input("Press ENTER to Cash Out $" + str(earnings + interest))
+    input("Press ENTER to Cash Out $" + str(earning + interest))
     return round, money
   else:
     if "Lifeguard" in pljokers and score*2 >= scoretobeat:
