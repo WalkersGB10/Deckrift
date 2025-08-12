@@ -855,7 +855,7 @@ def shoproll(type, variants):
         items.append([name, "Choose Two of Four Items", 8])
     return items, variants
 
-def displayshop(singles, svariants, packs, pvariants, price):
+def displayshop(singles, svariants, packs, pvariants, price, money):
   print("You have $" + str(money)) 
   time.sleep(0.5)
   print("$"+str(price), "Reroll\n")
@@ -1011,7 +1011,7 @@ def shop(deck, money, pljokers, handvalues):
   shopping = True
 
   while shopping:
-    displayshop(singles, svariants, packs, pvariants, price)
+    displayshop(singles, svariants, packs, pvariants, price, money)
     ans = input('''
     If you would like to:
     Reroll Loose Items: Type 'Reroll'
@@ -1027,7 +1027,6 @@ def shop(deck, money, pljokers, handvalues):
         print("\nShop Rerolled\n")
         time.sleep(0.5)
         singles, svariants = shoproll("single", svariants)
-      print("You have $" + str(money))
       time.sleep(0.5)
       continue
     elif ans == "Continue":
