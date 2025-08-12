@@ -779,9 +779,9 @@ hands, discards, round, money, table):
     time.sleep(1)
 
   if money > 24:
-      interest = 5
-    else:
-      interest = money // 5
+    interest = 5
+  else:
+    interest = money // 5
   money += interest
 
   if score >= scoretobeat:
