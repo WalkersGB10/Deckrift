@@ -1003,7 +1003,7 @@ def shop(deck, money, pljokers, handvalues):
       try: 
         pljokers.remove(response)
         money += 2
-        print("You have $" + money)
+        print("You have $" + str(money))
         time.sleep(0.5)
       except:
         print(response, "is not one of your jokers. Try Again.")
