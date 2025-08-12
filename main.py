@@ -189,7 +189,7 @@ def usefate(fate, deck, money, pljokers):
     print("You gained $" + str(chance))
 
   elif fate == "The Reckoning":
-    index = random.randint(0, len(pljokers))
+    index = random.randint(0, len(pljokers)-1)
     if len(pljokers) > 0:
       pljokers.pop(index)
     money += 20
@@ -456,7 +456,7 @@ hands, discards, round, money, table):
       if len(pljokers) > 1:
         option = "Backstabber"
         while option == "Backstabber":
-          option = pljokers[random.randint(0, len(pljokers))]
+          option = pljokers[random.randint(0, len(pljokers)-1)]
         jokers.remove(option)
         jokers_destroyed += 1
 
