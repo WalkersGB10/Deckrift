@@ -224,9 +224,9 @@ def usecrystal(crystal, handvalues):
     for index in range(20, 22):
       handvalues[index][0] += 30
       handvalues[index][1] += 3
-  elif crystal == "Power Crystal":
-    handvalues["bj"][18] += 40
-    handvalues["bj"][18] += 4
+  elif crystal == "Ultimate Crystal":
+    handvalues["bj"][0] += 40
+    handvalues["bj"][1] += 4
 
   return handvalues
     
@@ -312,7 +312,7 @@ def discard(hand, value):
 def jokercheck(jokers, hand, chips, multiplier):
   global busts
   global blackjacks
-  global jokers_destroyed
+  global destroyed_jokers
   global fates_used
   global crystals_used
   global packs_opened
@@ -352,7 +352,7 @@ def jokercheck(jokers, hand, chips, multiplier):
       print("Chips:", chips, "Multiplier:", multiplier)
       
     elif joker == "All Or Nothing":
-      muliplier += busts
+      multiplier += busts
       time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
       
@@ -383,7 +383,7 @@ def jokercheck(jokers, hand, chips, multiplier):
       print("Chips:", chips, "Multiplier:", multiplier)
 
     elif joker == "Backstabber":
-      multiplier *= 1 + (jokers_destroyed * 0.5)
+      multiplier *= 1 + (destroyed_jokers * 0.5)
       time.sleep(0.5)
       print("Chips:", chips, "Multiplier:", multiplier)
 
@@ -457,8 +457,8 @@ hands, discards, round, money, table):
         option = "Backstabber"
         while option == "Backstabber":
           option = pljokers[random.randint(0, len(pljokers)-1)]
-        jokers.remove(option)
-        jokers_destroyed += 1
+        pljokers.remove(option)
+        destroyed_jokers += 1
 
   if round % 3 == 0:
     print("-"*15, f"Table:{table} Boss Dealer", "-"*15)
