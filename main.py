@@ -655,13 +655,13 @@ hands, discards, round, money, table):
               
           else:
             print("Chips:", chips, "Multiplier:", multiplier)
-          if card[0] == "A":
-            chips += 11
-          elif card[0] in ["T", "J", "Q", "K"]:
-            chips += 10
-          else:
-            chips += int(card[0])
-          time.sleep(1)
+            if card[0] == "A":
+              chips += 11
+            elif card[0] in ["T", "J", "Q", "K"]:
+              chips += 10
+            else:
+              chips += int(card[0])
+            time.sleep(1)
 
     chips, multiplier = jokercheck(pljokers, plhand, chips, multiplier)
 
