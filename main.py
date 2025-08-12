@@ -1047,8 +1047,6 @@ def shop(deck, money, pljokers, handvalues):
       try: 
         pljokers.remove(response)
         money += 2
-        print("You have $" + str(money))
-        time.sleep(0.5)
       except:
         print(response, "is not one of your jokers. Try Again.")
         time.sleep(0.5)
@@ -1056,8 +1054,6 @@ def shop(deck, money, pljokers, handvalues):
       buy, index = browse(ans, singles, svariants, packs, pvariants, money)
 
       if buy == False:
-        time.sleep(0.5)
-        print("You have $" + str(money))
         time.sleep(0.5)
         continue
       else:
@@ -1071,14 +1067,10 @@ def shop(deck, money, pljokers, handvalues):
                 money -= ans[2]
                 deck, money, pljokers = usefate(ans, deck, money, pljokers)
                 time.sleep(0.5)
-                print("You have $" + str(money))
-                time.sleep(0.5)
                 continue
               else:
                 time.sleep(0.5)
                 print("You don't have enough money for this")
-                time.sleep(0.5)
-                print("You have $" + str(money))
                 time.sleep(0.5)
                 continue
             elif ans in crystals:
@@ -1088,14 +1080,10 @@ def shop(deck, money, pljokers, handvalues):
                 money -= ans[2]
                 handvalues = usecrystal(ans, handvalues)
                 time.sleep(0.5)
-                print("You have $" + str(money))
-                time.sleep(0.5)
                 continue
               else:
                 time.sleep(0.5)
                 print("You don't have enough money for this")
-                time.sleep(0.5)
-                print("You have $" + str(money))
                 time.sleep(0.5)
                 continue
             else:
@@ -1106,14 +1094,10 @@ def shop(deck, money, pljokers, handvalues):
                   money -= ans[2]
                   pljokers.append(ans[0])
                   time.sleep(0.5)
-                  print("You have $" + str(money))
-                  time.sleep(0.5)
                   continue
                 else:
                   time.sleep(0.5)
                   print("You don't have enough money for this")
-                  time.sleep(0.5)
-                  print("You have $" + str(money))
                   time.sleep(0.5)
                   continue
         except:
@@ -1127,14 +1111,10 @@ def shop(deck, money, pljokers, handvalues):
               money -= ans[2]
               money = openpack(ans, money)
               time.sleep(0.5)
-              print("You have $" + str(money))
-              time.sleep(0.5)
               continue
             else:
               time.sleep(0.5)
               print("You don't have enough money for this")
-              time.sleep(0.5)
-              print("You have $" + str(money))
               time.sleep(0.5)
               continue
         except:
