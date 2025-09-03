@@ -106,6 +106,18 @@ fates = [
   ["The Twist", "Gives $5 - $10", 2],
 
   ["The Reckoning", "Destroys a random joker. Gives $20", 2],
+
+  ["The Waste", "Destroyes a chosen card from your hand", 2],
+
+  ["The Darkness", "Turns 3 chosen cards from your hand into clubs", 2]
+
+  ["The Burial", "Turns 3 chosen cards from your hand into spades", 2]
+
+  ["The Rich", "Turns 3 chosen cards from your hand into diamonds", 2]
+
+  ["The Peace", "Turns 3 chosen cards from your hand into hearts", 2]
+
+  ["The Reflection", "Turns one chosen card into another from your hand", 2]
 ]
 
 crystals = [
@@ -202,6 +214,10 @@ def usefate(fate, deck, money, pljokers):
   global jokers
   global fates_used
   fates_used += 1
+  hand = []
+
+  for i in range(0, 6):
+    hand.append(randint(0, len(deck)-1))
   
   fate = fate[0]
   if fate == "The Gambler":
@@ -234,7 +250,14 @@ def usefate(fate, deck, money, pljokers):
     time.sleep(1)
     print("You gained $20")
 
+  elif fate == "The Darkness":
+    print("Cards to choose from")
+    for index in hand:
+      print(deck[index])
+    ans = input("Which three cards would you like to convert to clubs? Enter them separated by a space.").split()
 
+    
+  #dark, burial, rich, peace, reflect
   return deck, money, pljokers
 
 def usecrystal(crystal, handvalues):
