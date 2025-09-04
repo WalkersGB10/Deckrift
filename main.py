@@ -217,7 +217,11 @@ def usefate(fate, deck, money, pljokers):
   hand = []
 
   for i in range(0, 6):
-    hand.append(randint(0, len(deck)-1))
+    index = randint(0, len(deck)-1))
+    if index not in hand:
+      hand.append(index)
+    else:
+      i -= 1
   
   fate = fate[0]
   if fate == "The Gambler":
@@ -256,8 +260,42 @@ def usefate(fate, deck, money, pljokers):
       print(deck[index])
     ans = input("Which three cards would you like to convert to clubs? Enter them separated by a space.").split()
 
+    for index in hand:
+      if deck[index] in ans:
+        deck[index][1] = "C"
+
+  elif fate == "The Burial":
+    print("Cards to choose from")
+    for index in hand:
+      print(deck[index])
+    ans = input("Which three cards would you like to convert to spades? Enter them separated by a space.").split()
+
+    for index in hand:
+      if deck[index] in ans:
+        deck[index][1] = "S"
+
+  elif fate == "The Rich":
+    print("Cards to choose from")
+    for index in hand:
+      print(deck[index])
+    ans = input("Which three cards would you like to convert to diamonds? Enter them separated by a space.").split()
+
+    for index in hand:
+      if deck[index] in ans:
+        deck[index][1] = "D"
+
+    elif fate == "The Peace":
+    print("Cards to choose from")
+    for index in hand:
+      print(deck[index])
+    ans = input("Which three cards would you like to convert to hearts? Enter them separated by a space.").split()
+
+    for index in hand:
+      if deck[index] in ans:
+        deck[index][1] = "H"
+
     
-  #dark, burial, rich, peace, reflect
+  #reflect
   return deck, money, pljokers
 
 def usecrystal(crystal, handvalues):
