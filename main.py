@@ -294,8 +294,23 @@ def usefate(fate, deck, money, pljokers):
       if deck[index] in ans:
         deck[index][1] = "H"
 
+  elif fate == "The Reflection":
+      print("Cards to choose from")
+    for index in hand:
+      print(deck[index])
+    ans = input("Enter the card you would like to convert then the card you would like to convert it to separated by a space.").split()
+
+    new = ""
+
+    for index in hand:
+      if deck[index] == ans[0]:
+        deck.pop(index)
+      elif deck[index] == ans[1]:
+        new = deck[index]
+        
+    deck.append(new)
     
-  #reflect
+
   return deck, money, pljokers
 
 def usecrystal(crystal, handvalues):
