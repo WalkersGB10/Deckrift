@@ -109,13 +109,13 @@ fates = [
 
   ["The Waste", "Destroyes a chosen card from your hand", 2],
 
-  ["The Darkness", "Turns 3 chosen cards from your hand into clubs", 2]
+  ["The Darkness", "Turns 3 chosen cards from your hand into clubs", 2],
 
-  ["The Burial", "Turns 3 chosen cards from your hand into spades", 2]
+  ["The Burial", "Turns 3 chosen cards from your hand into spades", 2],
 
-  ["The Rich", "Turns 3 chosen cards from your hand into diamonds", 2]
+  ["The Rich", "Turns 3 chosen cards from your hand into diamonds", 2],
 
-  ["The Peace", "Turns 3 chosen cards from your hand into hearts", 2]
+  ["The Peace", "Turns 3 chosen cards from your hand into hearts", 2],
 
   ["The Reflection", "Turns one chosen card into another from your hand", 2]
 ]
@@ -217,7 +217,7 @@ def usefate(fate, deck, money, pljokers):
   hand = []
 
   for i in range(0, 6):
-    index = randint(0, len(deck)-1))
+    index = random.randint(0, len(deck)-1)
     if index not in hand:
       hand.append(index)
     else:
@@ -284,7 +284,7 @@ def usefate(fate, deck, money, pljokers):
       if deck[index] in ans:
         deck[index][1] = "D"
 
-    elif fate == "The Peace":
+  elif fate == "The Peace":
     print("Cards to choose from")
     for index in hand:
       print(deck[index])
@@ -295,7 +295,7 @@ def usefate(fate, deck, money, pljokers):
         deck[index][1] = "H"
 
   elif fate == "The Reflection":
-      print("Cards to choose from")
+    print("Cards to choose from")
     for index in hand:
       print(deck[index])
     ans = input("Enter the card you would like to convert then the card you would like to convert it to separated by a space.").split()
@@ -1211,4 +1211,7 @@ def shop(deck, money, pljokers, handvalues):
 
 #pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
-playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers) 
+#playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers)
+testing = decks["standard"] 
+usefate(["The Darkness", 2, 2], testing, 5, [])
+print(testing)
