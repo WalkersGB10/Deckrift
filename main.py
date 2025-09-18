@@ -1016,7 +1016,7 @@ def openpack(pack, money):
         time.sleep(0.5)
       ans = input("Type the name of the fate you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return
+        return money
       for option in options:
         if ans in option:
           deck, money, pljokers = usefate(option, deck, money, pljokers)
@@ -1040,7 +1040,7 @@ def openpack(pack, money):
       time.sleep(0.5)
       ans = input("Type the name of the crystal you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return
+        return money
       for option in options:
         if ans in option:
           handvalues = usecrystal(option, handvalues)
@@ -1063,7 +1063,7 @@ def openpack(pack, money):
       time.sleep(0.5)
       ans = input("Type the name of the joker you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return
+        return money
       for option in options:
         if ans in option:
           if len(pljokers) < 5:
@@ -1211,7 +1211,7 @@ def shop(deck, money, pljokers, handvalues):
 
 #pljokers = ["Mirror", "Jimbo"]
 #shop(decks["standard"], money, pljokers, handvalues)
-#playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers)
-testing = decks["standard"] 
-usefate(["The Darkness", 2, 2], testing, 5, [])
-print(testing)
+playdeckrift(decks, basedealers, table, base_hands, base_discards, round, money, handvalues, jokers)
+#testing = decks["standard"] 
+#usefate(["The Darkness", 2, 2], testing, 5, [])
+#print(testing)
