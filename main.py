@@ -395,7 +395,7 @@ def drawcard(deck, hand, value):
   card = deck[0]
   hand.append(card)
   deck.pop(0)
-  if card[0] in ["T", "J", "Q", "K"]:
+  '''if card[0] in ["T", "J", "Q", "K"]:
       value += 10
   elif card[0] == "A":
     if value <11:
@@ -403,10 +403,12 @@ def drawcard(deck, hand, value):
     else:
       value += 1
   else:
-    value += int(card[0])
+    value += int(card[0])'''
+  value = countvalue(hand)
   return deck, hand, value
 
-def discard(hand, value):
+def discard(hand, value, discards):
+  start = len(hand)
   selected = input("Enter the cards you would like to discard separated by a space")
   selected = selected.split()
 
@@ -436,7 +438,12 @@ def discard(hand, value):
           value -= 10
         else:
           value -= int(selection[0])
-  return hand, value
+  end = len(hand)
+  if start > end:
+    discards -= 1
+    time.sleep(1)
+    print("Discards remaining:", discards)
+  return hand, value, discards
 
 def jokercheck(jokers, hand, chips, multiplier):
   global busts
@@ -633,7 +640,6 @@ hands, discards, round, money, table):
 
     for i in range(0, 2):
       ddeck, dhand, dvalue = drawcard(ddeck, dhand, dvalue)
-
     if "Phantom Joker" not in pljokers:
       print("\n\nDealer Upcard:")
       if dhand[0][0] == "A":
@@ -644,7 +650,7 @@ hands, discards, round, money, table):
         print(dhand[0], "\nValue:", dhand[0][0])
     else:
       print("\n\nDealer Cards:")
-      print(dhand[0], dhand[2], "\nValue:", dvalue)
+      print(dhand[0], dhand[1], "\nValue:", dvalue)
 
     while ans != "stick" and ans != "stand":
 
@@ -681,10 +687,10 @@ hands, discards, round, money, table):
         ans = "stick"
       elif ans == "discard":
         if discards > 0:
-          discards -= 1
+          '''discards -= 1
           time.sleep(1)
-          print("Discards remaining:", discards)
-          plhand, plvalue = discard(plhand, plvalue)
+          print("Discards remaining:", discards)'''
+          plhand, plvalue, discards = discard(plhand, plvalue, discards)
           if round % 3 == 0:
             plvalue = bosscheck(effect[0], plhand, plvalue)
         else:
@@ -1016,7 +1022,7 @@ def openpack(pack, money):
         time.sleep(0.5)
       ans = input("Type the name of the fate you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return money
+        return
       for option in options:
         if ans in option:
           deck, money, pljokers = usefate(option, deck, money, pljokers)
@@ -1040,7 +1046,7 @@ def openpack(pack, money):
       time.sleep(0.5)
       ans = input("Type the name of the crystal you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return money
+        return
       for option in options:
         if ans in option:
           handvalues = usecrystal(option, handvalues)
@@ -1063,7 +1069,7 @@ def openpack(pack, money):
       time.sleep(0.5)
       ans = input("Type the name of the joker you would like or 'Skip' if you wouldn't like any of them").title()
       if ans == "Skip":
-        return money
+        return
       for option in options:
         if ans in option:
           if len(pljokers) < 5:
